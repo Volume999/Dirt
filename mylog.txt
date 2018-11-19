@@ -1,0 +1,69 @@
+123(1) tried to submit for the second time on 2018-11-17 18:01:58 
+123(1) tried to submit for the second time on 2018-11-17 18:02:01 
+1 (8) tried to submit a point outside of Bishkek: 421321.000000 421321.000000 on 2018-11-18 06:18:57
+1 (8) tried to submit a point outside of Bishkek: 12321.000000 321321321.000000 on 2018-11-18 06:19:02
+1(8) tried to submit for the second time on 2018-11-18 06:19:54
+1(8) tried to submit for the second time on 2018-11-18 06:20:56 
+1(8) tried to report for the second time on 2018-11-18 06:22:16
+1(8) tried to report for the second time on 2018-11-18 06:31:53
+1 (8) bypassed HTML and submitted empty input
+1 (8) submitted wrong credentials while changing password
+1 (8) bypassed HTML and submitted empty input on 2018-11-18 06:55:42
+31.186.51.92 bypassed HTML and submitted empty username on 2018-11-18 07:05:54
+31.186.51.92 bypassed HTML and submitted password less than 6 symbols on 2018-11-18 07:06:04
+31.186.51.92 bypassed HTML and submitted password less than 6 symbols on 2018-11-18 07:06:12
+31.186.51.92 tried to register for the second time on 2018-11-18 07:06:17
+31.186.51.92 tried to register for the second time on 2018-11-18 07:06:45
+31.186.51.92 tried to register under an existing username on 2018-11-18 07:08:18
+31.186.51.92 tried to register for the second time on 2018-11-18 07:11:23
+2 (9) bypassed HTML and submitted empty input on 2018-11-18 07:11:59
+2 (9) submitted incorrect credentials while changing username on 2018-11-18 07:12:11
+2 (9) tried to change his username to an existing one: 3 on 2018-11-18 07:12:18
+31.186.51.92 tried to register under an existing username on 2018-11-18 07:14:15
+2 (9) submitted unmatched passwords while changing password: 321312421 321412321 on 2018-11-18 16:56:28
+2 (9) submitted unmatched passwords while changing password: 421321 121321312 on 2018-11-18 16:56:36
+2 (9) submitted wrong credentials while changing password on 2018-11-18 17:02:49
+2 (9) submitted unmatched passwords while changing password: 421321 412321 on 2018-11-18 17:03:07
+31.186.51.92 tried to access this page without authorizing on 2018-11-18 17:03:28
+31.186.51.92 tried to access this page without authorizing on 2018-11-18 17:03:47
+31.186.51.92 tried to access this page without authorizing on 2018-11-18 17:04:39
+31.186.51.92 tried to access this page without authorizing on 2018-11-18 17:15:58
+31.186.51.92 tried to access this page without authorizing on 2018-11-18 17:16:21
+31.186.51.92 tried to access this page without authorizing on 2018-11-18 17:16:30
+31.186.51.92 tried to access this page without authorizing on 2018-11-18 17:16:40
+31.186.51.92 tried to access this page without authorizing on 2018-11-18 17:16:50
+31.186.51.92 tried to access this page without authorizing on 2018-11-18 17:16:55
+31.186.51.92 tried to access this page without authorizing on 2018-11-18 17:17:01
+31.186.51.92 tried to access this page without authorizing on 2018-11-18 17:18:07
+31.186.51.92 tried to access this page without authorizing on 2018-11-18 17:18:16
+2(9) tried to submit for the second time on 2018-11-18 17:20:17
+2(9) tried to submit for the second time on 2018-11-18 17:21:32
+2 (9) tried to submit a point outside of Bishkek: 45123.000000 412321.000000 on 2018-11-18 17:23:06
+2(9) tried to submit for the second time on 2018-11-18 17:23:21
+2 (9) tried to submit a point outside of Bishkek: 42.956133 74.490467 on 2018-11-18 17:30:28
+2 (9) tried to submit a point outside of Bishkek: 42.927927 74.538315 on 2018-11-18 17:30:53
+Point belongs to bishkek, but not to any region: 42.911322 74.532127 on 2018-11-18 17:31:12
+2(9) tried to submit before his allowance on 2018-11-18 17:33:24
+2(9) tried to report for the second time on 2018-11-18 17:34:47
+2(9) tried to report for the second time on 2018-11-18 17:34:53
+2(9) tried to report for the second time on 2018-11-18 17:35:19
+2 (9) tried to submit a point outside of Bishkek: 43.092416 74.407255 on 2018-11-18 17:41:24
+Point belongs to bishkek, but not to any region: 42.899251 74.519775 on 2018-11-18 17:42:09
+2(9) tried to submit before his allowance on 2018-11-18 17:42:09
+2(9) tried to submit before his allowance on 2018-11-18 17:42:44
+2(9) tried to submit before his allowance on 2018-11-18 17:42:59
+31.186.51.92 tried to access this page without authorizing on 2018-11-18 18:48:39
+10.10.0.114 tried to access this page without authorizing on 2018-11-19 04:04:28
+10.10.0.114 tried to access this page without authorizing on 2018-11-19 04:04:28
+Volume999 (17) tried to submit a point outside of Bishkek: 312321421.000000 412321.000000 on 2018-11-19 04:43:40
+Volume999(17) tried to submit before his allowance on 2018-11-19 04:47:01
+10.10.0.114 tried to access this page without authorizing on 2018-11-19 04:57:02
+10.10.2.103 tried to register under an existing username on 2018-11-19 04:57:04
+10.9.1.92 tried to register for the second time on 2018-11-19 05:02:32
+2 (9) tried to submit a point outside of Bishkek: 31242.000000 421321412.000000 on 2018-11-19 05:03:49
+2(9) tried to submit before his allowance on 2018-11-19 05:04:23
+2(9) tried to report for the second time on 2018-11-19 05:06:47
+5 (13) submitted wrong credentials while changing password on 2018-11-19 05:08:49
+10.9.1.92 tried to access this page without authorizing on 2018-11-19 05:14:34
+10.9.1.92 tried to access this page without authorizing on 2018-11-19 05:14:42
+193.106.49.117 tried to register under an existing username on 2018-11-19 06:27:40

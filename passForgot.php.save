@@ -1,0 +1,54 @@
+
+
+<?php
+
+if(isset($_POST["submit"])){
+
+    $db_host = "localhost";    $db_name = "zveri";
+    $db_user = "zveri";
+    $db_pass = "123dastan";
+
+    $conn = mysqli_connect($db_host, $db_user, $db_pass,$db_name);
+	$email = $conn-> real_escape_string($_POST["email"]);
+	$data = $conn -> query("SELECT id FROM users WHERE email = '$email'");
+
+	if($data){
+		$str = "0123456789abcdsfgijklmnopqrstuvwxyz";
+		$str = str_shuffle($str);
+		$str = substr($str, 0, 10);	
+		$url = "http://CleanBish.kg/users/resetPass.php?token=$str&email=$email";
+
+		//works only with real paid server;
+		//mail($email , " please visit this : $url", "From : Kushtar.com\r\n");
+
+		$sql = "UPDATE users SET token='$str' WHERE email='$email'";
+
+		echo " please check your email ";
+	}else{
+		echo " please check your inputs ";
+	}
+
+} else {
+
+   $html = "
+
+        <html>
+
+        <form action='' method='POST'>
+
+        <tr><td> <input type='text' name='email' ></td> </tr> <br>
+
+        <tr><td> <input type='submit' name = 'submit' value = 'request password''> </td></tr>
+
+        </html>
+
+        ";
+
+        print $html;
+
+}
+
+
+?>
+
+

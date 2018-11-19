@@ -1,15 +1,12 @@
-<?php
-session_start();
-require_once ("config.php");
-try {
-	error_reporting(E_ALL);
-	$conn;
-	if (!$conn) {
-    		die("Connection failed: " . mysqli_connect_error());
-	}	
-	$result = mysqli_query($conn,"SELECT * FROM coordinates");   
-	while($row = mysqli_fetch_assoc( $result)){
-   	  $json[] = $row;
+<?php 
+	session_start();
+	require_once("config.php");
+	if(isset($_POST['submit'])) {
+		$region = $_POST['region'];
+		$conn;
+	$result = mysqli_query($conn, "SELECT * from coordinates where region = '$region'");
+    while($row = mysqli_fetch_assoc( $result)){
+   	$json[] = $row;
  	}
  	$json_encoded = json_encode($json);
  	$json_decoded = json_decode($json_encoded);
@@ -35,7 +32,7 @@ try {
         echo '</tr>';
     }
     echo '</table>';
-if (empty($_SESSION['username'])) {
+	if (empty($_SESSION['username'])) {
     	$link = 'GuestChoose.php';
 	 }
 	 else {
@@ -44,14 +41,32 @@ if (empty($_SESSION['username'])) {
 	 $message = "";
 	 $message2 = "Go back";
 	htmlGetBack($message, $link, $message2);
-}catch(Exception $e) {
-	writeException("please");
-}	    
 
+}
 
-
-
-
-
-?>
+	else {
+		$html = "
+		<html>
+		<body>
+			<form action = '' method='POST'>
+				<table>
+					<tr>
+						<td>Select Region <select name = 'region'>
+							<option value = 'Sverdlov'>Sverdlov</option>
+							<option value ='Oktyabr'> Oktyabr</option>
+							<option value = 'Pervomay'> Pervomay</option>
+							<option value = 'Lenin'> Lenin</option>
+						</select>
+						</td>
+					</tr>
+					<tr>
+						<td><input type='submit' name='submit'></td>
+					</tr>
+				</table>
+			</form>
+		</body>
+		</html>
+		";
+		print ($html);
+	}
 

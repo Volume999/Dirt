@@ -41,12 +41,12 @@ require_once ("config.php");
       function initMap() {
 
         var map = new google.maps.Map(document.getElementById('map'), {
-          zoom: 3,
-          center: {lat: -28.024, lng: 140.887}
+          zoom: 12,
+          center: {lat: 42.8640117, lng: 74.5460088	}
         });
 
         // Create an array of alphabetical characters used to label the markers.
-        var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        var labels = 'DASTAN';
 
       
         var markers = locations.map(function(location, i) {
