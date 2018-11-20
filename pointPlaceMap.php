@@ -27,7 +27,7 @@ $type = $_GET['type'];
     die('Invalid query: ' . mysqli_error());
   }
   
-  $result = mysqli_query($conn,"SELECT lat, lng FROM coordinates");   
+  $result = mysqli_query($conn,"SELECT lat, lng FROM markers");   
   while($row = mysqli_fetch_assoc( $result)){
       $json[] = $row;
   }
@@ -78,6 +78,20 @@ $type = $_GET['type'];
            zoom: 12,
             center: {lat: 42.8640117, lng: 74.5460088 }
         });
+          var labels = 'DASTAN';
+
+      
+        var markers = locations.map(function(location, i) {
+          return new google.maps.Marker({
+            position: location,
+            label: labels[i % labels.length]
+          });
+        });
+
+        // Add a marker clusterer to manage the markers.
+        var markerCluster = new MarkerClusterer(map, markers,
+            {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
+
 
         infowindow = new google.maps.InfoWindow({
           content: document.getElementById('form')
@@ -99,6 +113,7 @@ $type = $_GET['type'];
           });
         });
       }
+       var locations = $json_encoded
 
       function saveData() {
         var name = escape(document.getElementById('name').value);
@@ -137,9 +152,12 @@ $type = $_GET['type'];
       }
 
     </script>
+     <script src='https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js'>
+    </script>
     <script async defer
     src='https://maps.googleapis.com/maps/api/js?key=AIzaSyBlLms-yD7lNgRk3z4LIpv79WvNTP2aY1I&callback=initMap'>
     </script>
+
   </body>
 </html>";
 
