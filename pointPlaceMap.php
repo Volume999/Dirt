@@ -6,11 +6,11 @@ require_once ("config.php");
         die("Connection failed: " . mysqli_connect_error());
   }
 
-  $name = $_GET['name'];
-$address = $_GET['address'];
-$lat = $_GET['lat'];
-$lng = $_GET['lng'];
-$type = $_GET['type'];
+  	$name = $_GET['name'];
+	$address = $_GET['address'];
+	$lat = $_GET['lat'];
+	$lng = $_GET['lng'];
+	$type = $_GET['type'];
 
   $query = sprintf("INSERT INTO markers " .
          " (id, name, address, lat, lng, type ) " .
@@ -53,10 +53,10 @@ $type = $_GET['type'];
     </style>
   </head>
   <body>
-    <div id='map' height='460px' width='100%'></div>
+    <div id='map' height='460px' width='100%' ></div>
     <div id='form'>
       <table>
-      <tr><td>Name:</td> <td><input type='text' id='name'/> </td> </tr>
+       <tr><td>Name:</td> <td><input type='text' id='name'/> </td> </tr>
       <tr><td>Address:</td> <td><input type='text' id='address'/> </td> </tr>
       <tr><td>Type:</td> <td><select id='type'> +
                  <option value='bar' SELECTED>bar</option>
@@ -84,7 +84,6 @@ $type = $_GET['type'];
         var markers = locations.map(function(location, i) {
           return new google.maps.Marker({
             position: location,
-            label: labels[i % labels.length]
           });
         });
 
@@ -102,10 +101,7 @@ $type = $_GET['type'];
         });
 
         google.maps.event.addListener(map, 'click', function(event) {
-          marker = new google.maps.Marker({
-            position: event.latLng,
-            map: map
-          });
+           placeMarker(event.latLng);
 
 
           google.maps.event.addListener(marker, 'click', function() {
@@ -113,9 +109,25 @@ $type = $_GET['type'];
           });
         });
       }
+      function placeMarker(location) {
+		  if (!marker || !marker.setPosition) {
+		    marker = new google.maps.Marker({
+		      position: location,
+		      map: map,
+		    });
+		  } else {
+		    marker.setPosition(location);
+		  }
+		  if (!!infowindow && !!infowindow.close) {
+		    infowindow.close();
+		  }
+		 
+		  infowindow.open(map, marker);
+	}
        var locations = $json_encoded
 
       function saveData() {
+
         var name = escape(document.getElementById('name').value);
         var address = escape(document.getElementById('address').value);
         var type = document.getElementById('type').value;
@@ -123,13 +135,25 @@ $type = $_GET['type'];
         var url = 'phpsqlinfo_addrow.php?name=' + name + '&address=' + address +
                   '&type=' + type + '&lat=' + latlng.lat() + '&lng=' + latlng.lng();
 
+         infowindow.close();
+		messagewindow.open(map, marker);
+		marker = new google.maps.Marker({
+
+            position: event.latLng,
+            map: map
+
+          });
+ 		
+   		
+
         downloadUrl(url, function(data, responseCode) {
 
           if (responseCode == 200 && data.length <= 1) {
-            infowindow.close();
-            messagewindow.open(map, marker);
+           
+            
           }
         });
+        
       }
 
       function downloadUrl(url, callback) {
