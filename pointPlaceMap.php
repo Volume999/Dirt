@@ -5,6 +5,7 @@ require_once ("config.php");
   if (!$conn) {
         die("Connection failed: " . mysqli_connect_error());
   }
+  
 
   	$name = $_GET['name'];
 	$address = $_GET['address'];
