@@ -33,6 +33,7 @@
         print ("
         <html>
         <body>
+           <a href='http://5.59.11.66/~zveri/pointPlaceMap.php/phpsqlinfo_addrow.php?comment=none&level=3&lat=42.8640117&lng=74.5460088'>Set the trashy point throught map</a>
         <a href='pointPlace.php'>Set the trashy point</a>
         <a href='viewPlaces.php'>View the trashy points</a>
         <a href='regions.php'>View regionally </a><br>

@@ -6,29 +6,29 @@ require_once ("config.php");
         die("Connection failed: " . mysqli_connect_error());
   }
   
-
-  	$name = $_GET['name'];
-	$address = $_GET['address'];
+  	$level = $_GET['level'];
+  	$comment = $_GET['comment'];
 	$lat = $_GET['lat'];
 	$lng = $_GET['lng'];
-	$type = $_GET['type'];
+
 
   $query = sprintf("INSERT INTO markers " .
-         " (id, name, address, lat, lng, type ) " .
-         " VALUES (NULL, '%s', '%s', '%s', '%s', '%s');",
-         mysqli_escape_string($conn,$name),
-         mysqli_escape_string($conn,$address),
-         mysqli_escape_string($conn,$lat),
+         " (id,  lat, lng, comments, level ) " .
+         " VALUES (NULL,  '%s', '%s', '%s',$level);",
+        mysqli_escape_string($conn,$lat),
          mysqli_escape_string($conn,$lng),
-         mysqli_escape_string($conn,$type));
+     	mysqli_escape_string($conn,$comment)); 
 
   $result = mysqli_query($conn,$query);
 
   if (!$result) {
     die('Invalid query: ' . mysqli_error());
   }
+ 
   
-  $result = mysqli_query($conn,"SELECT lat, lng FROM markers");   
+
+  
+  $result = mysqli_query($conn,"SELECT lat, lng,comments,level FROM markers");   
   while($row = mysqli_fetch_assoc( $result)){
       $json[] = $row;
   }
@@ -57,13 +57,27 @@ require_once ("config.php");
     <div id='map' height='460px' width='100%' ></div>
     <div id='form'>
       <table>
-       <tr><td>Name:</td> <td><input type='text' id='name'/> </td> </tr>
-      <tr><td>Address:</td> <td><input type='text' id='address'/> </td> </tr>
-      <tr><td>Type:</td> <td><select id='type'> +
-                 <option value='bar' SELECTED>bar</option>
-                 <option value='restaurant'>restaurant</option>
-                 </select> </td></tr>
-                 <tr><td></td><td><input type='button' value='Save' onclick='saveData()'/></td></tr>
+       
+      	
+
+
+        <td> 
+         <tr>
+        Level Of Pollution <br>
+        <input type='radio' name='lev' value='1'> 1 &nbsp; &nbsp;
+        <input type='radio' name='lev' value='2'> 2 &nbsp; &nbsp;
+        <input type='radio' name='lev' value='3'> 3 &nbsp; &nbsp;
+        <input type='radio' name='lev' value='4'> 4 &nbsp; &nbsp;
+        <input type='radio' name='lev' value='5'> 5 &nbsp; &nbsp;
+
+        <br>  
+        </tr>  
+       
+
+        <tr> Comment <br> <textarea id='comment' name='comment' rows='10' cols='40'> </textarea>  <br></tr>
+  
+            <tr><input type='button' value='Save' onclick='saveData()'/></tr>
+             </td>
       </table>
     </div>
     <div id='message'>Location saved</div>
@@ -72,6 +86,9 @@ require_once ("config.php");
       var marker;
       var infowindow;
       var messagewindow;
+      
+
+        var locations = $json_encoded
 
       function initMap() {
        
@@ -83,9 +100,19 @@ require_once ("config.php");
 
       
         var markers = locations.map(function(location, i) {
-          return new google.maps.Marker({
-            position: location,
+          var marker = new google.maps.Marker({
+            position: ({lat: location.lat,lng: location.lng}),
           });
+
+          var statewindow = new google.maps.InfoWindow({
+          	 content: '<h3> comment:' + location.comments + '<br>Level of Pollution: ' + location.level.toString()  + '<h3>'
+          })
+
+          marker.addListener('click', function(){
+          		statewindow.open(map,marker);
+          });
+
+          return marker;
         });
 
         // Add a marker clusterer to manage the markers.
@@ -125,16 +152,26 @@ require_once ("config.php");
 		 
 		  infowindow.open(map, marker);
 	}
-       var locations = $json_encoded
+     
 
       function saveData() {
 
-        var name = escape(document.getElementById('name').value);
-        var address = escape(document.getElementById('address').value);
-        var type = document.getElementById('type').value;
+        var comment = escape(document.getElementById('comment').value);
         var latlng = marker.getPosition();
-        var url = 'phpsqlinfo_addrow.php?name=' + name + '&address=' + address +
-                  '&type=' + type + '&lat=' + latlng.lat() + '&lng=' + latlng.lng();
+        var levels = document.getElementsByName('lev');
+        var level = 3;
+
+        for (var i = 0, length = levels.length; i < length; i++)
+			{
+			 if (levels[i].checked)
+			 {
+
+			  level = levels[i].value;
+			  break;
+			 }
+		}
+        
+        var url = 'phpsqlinfo_addrow.php?comment=' + comment +  '&level=' + level +'&lat=' + latlng.lat() + '&lng=' + latlng.lng();
 
          infowindow.close();
 		messagewindow.open(map, marker);
@@ -187,6 +224,7 @@ require_once ("config.php");
 </html>";
 
   echo $html;
+
 
 
 

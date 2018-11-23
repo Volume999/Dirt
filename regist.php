@@ -36,6 +36,7 @@
 	$password = mysqli_escape_string($conn, $password);
 	$region = mysqli_escape_string($conn, $region);
 	mysqli_query($conn, "INSERT into users (username, pswd, region, ip) values ('$username', '$password', '$region', '$ip');");
+	mysqli_query($conn, "UPDATE users set lastSubmission = '1970-1-1 11:11:11' where username = '$username'");
 	logAction($conn, $username, "created");	
 	}
 	htmlGetBack($prob, $link, $message);	

@@ -67,3 +67,7 @@ Volume999(17) tried to submit before his allowance on 2018-11-19 04:47:01
 10.9.1.92 tried to access this page without authorizing on 2018-11-19 05:14:34
 10.9.1.92 tried to access this page without authorizing on 2018-11-19 05:14:42
 193.106.49.117 tried to register under an existing username on 2018-11-19 06:27:40
+ongore99 (15) tried to submit a point outside of Bishkek: 76.823445 76.232442 on 2018-11-20 17:03:18
+ongore99 (15) tried to submit a point outside of Bishkek: 76.823445 48.803232 on 2018-11-20 17:03:29
+77.95.61.142 tried to access this page without authorizing on 2018-11-21 16:36:20
+31.186.51.92 tried to register for the second time on 2018-11-23 08:00:33

@@ -6,8 +6,8 @@ print("<!DOCTYPE html>
 <title>Guest entry</title>
 </head>
 <body>
-<a href='viewPlacesMap.php'>View the trashy points</a>
-<a href='#regions'>View regionally </a>
+<a href='viewPlaces.php'>View the trashy points</a>
+<a href='regions.php'>View regionally </a>
 <a href = 'index.php'> Login </a>
 </body>
 </html>
