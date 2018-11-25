@@ -57,11 +57,14 @@ exit;
         <tr><td colspan='2' align='center'> <input type='submit' name='submit' size = '40' value='change'> </td></tr>
 
         </html>
-        
+        </table>
+	</center>
+
 
         ";
 
         print $html;
+	htmlGetBack("", "userOffice.php", "Return");
 
       }
 

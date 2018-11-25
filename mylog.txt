@@ -71,3 +71,78 @@ ongore99 (15) tried to submit a point outside of Bishkek: 76.823445 76.232442 on
 ongore99 (15) tried to submit a point outside of Bishkek: 76.823445 48.803232 on 2018-11-20 17:03:29
 77.95.61.142 tried to access this page without authorizing on 2018-11-21 16:36:20
 31.186.51.92 tried to register for the second time on 2018-11-23 08:00:33
+6 (14) tried to submit a point outside of Bishkek: 42.91859459766313  on 2018-11-24 05:27:21
+6 (14) tried to submit a point outside of Bishkek: 42.91859459766313  on 2018-11-24 05:27:21
+6 (14) tried to submit a point outside of Bishkek: 42.92563403350388  on 2018-11-24 05:29:04
+6 (14) tried to submit a point outside of Bishkek: 42.92563403350388  on 2018-11-24 05:29:04
+6 (14) tried to submit a point outside of Bishkek: 42.87546050346818  on 2018-11-24 05:29:12
+6 (14) tried to submit a point outside of Bishkek: 42.87546050346818  on 2018-11-24 05:29:12
+6 (14) tried to submit a point outside of Bishkek: 42.88325330495157  on 2018-11-24 05:29:31
+6 (14) tried to submit a point outside of Bishkek: 42.88325330495157  on 2018-11-24 05:29:31
+Duplicate entry '14' for key 'PRIMARY' on 2018-11-24 05:35:41
+Point belongs to bishkek, but not to any region: 42.810293 74.634928 on 2018-11-24 05:45:58
+Point belongs to bishkek, but not to any region: 42.810293 74.634928 on 2018-11-24 05:45:59
+6(14) tried to submit before his allowance on 2018-11-24 06:04:58
+6(14) tried to submit before his allowance on 2018-11-24 06:04:58
+6(14) tried to submit before his allowance on 2018-11-24 06:12:06
+6(14) tried to submit before his allowance on 2018-11-24 06:12:06
+6(14) tried to submit before his allowance on 2018-11-24 06:12:25
+6(14) tried to submit before his allowance on 2018-11-24 06:12:53
+6(14) tried to submit before his allowance on 2018-11-24 06:13:29
+123(19) tried to submit before his allowance on 2018-11-24 06:17:29
+123 (19) tried to submit a point outside of Bishkek: 42.919349 74.331604 on 2018-11-24 06:21:17
+123 (19) tried to submit a point outside of Bishkek: 42.919349 74.331604 on 2018-11-24 06:21:17
+123 (19) tried to submit a point outside of Bishkek: 42.910046 74.372802 on 2018-11-24 06:21:23
+123 (19) tried to submit a point outside of Bishkek: 42.910046 74.372802 on 2018-11-24 06:21:23
+Point belongs to bishkek, but not to any region: 42.949763 74.597679 on 2018-11-24 06:21:30
+123(19) tried to submit before his allowance on 2018-11-24 06:21:30
+Point belongs to bishkek, but not to any region: 42.949763 74.597679 on 2018-11-24 06:21:30
+123(19) tried to submit before his allowance on 2018-11-24 06:21:30
+123(19) tried to submit before his allowance on 2018-11-24 06:21:37
+123(19) tried to submit before his allowance on 2018-11-24 06:21:37
+123(19) tried to submit before his allowance on 2018-11-24 06:21:42
+123(19) tried to submit before his allowance on 2018-11-24 06:21:43
+123(19) tried to submit before his allowance on 2018-11-24 06:22:15
+Point belongs to bishkek, but not to any region: 42.857469 74.610038 on 2018-11-24 06:25:25
+123(19) tried to submit before his allowance on 2018-11-24 06:26:48
+ongore99 (15) tried to submit a point outside of Bishkek: 42.885845 74.490200 on 2018-11-24 07:01:42
+Point belongs to bishkek, but not to any region: 42.929908 74.554249 on 2018-11-24 07:03:05
+ongore99(15) tried to submit before his allowance on 2018-11-24 07:03:05
+Point belongs to bishkek, but not to any region: 42.929908 74.554249 on 2018-11-24 07:03:14
+ongore99(15) tried to submit before his allowance on 2018-11-24 07:03:14
+ongore99(15) tried to submit before his allowance on 2018-11-24 07:03:34
+ongore99(15) tried to submit before his allowance on 2018-11-24 07:03:51
+77.95.61.142 tried to register for the second time on 2018-11-24 07:06:23
+77.95.61.142 tried to access this page without authorizing on 2018-11-24 07:06:48
+123(19) tried to submit before his allowance on 2018-11-25 10:13:33
+123(19) tried to submit before his allowance on 2018-11-25 10:50:56
+77.95.61.142 tried to access this page without authorizing on 2018-11-25 10:58:27
+ongore99(15) tried to submit before his allowance on 2018-11-25 10:58:57
+ongore99(15) tried to submit before his allowance on 2018-11-25 10:59:09
+ongore99(15) tried to submit before his allowance on 2018-11-25 11:06:13
+ongore99(15) tried to submit before his allowance on 2018-11-25 11:07:30
+123(19) tried to submit before his allowance on 2018-11-25 11:09:59
+123(19) tried to submit before his allowance on 2018-11-25 11:14:58
+123(19) tried to submit before his allowance on 2018-11-25 11:15:39
+123(19) tried to submit before his allowance on 2018-11-25 11:15:48
+123(19) tried to submit before his allowance on 2018-11-25 11:15:49
+123(19) tried to submit before his allowance on 2018-11-25 11:15:50
+123(19) tried to submit before his allowance on 2018-11-25 11:15:50
+123(19) tried to submit before his allowance on 2018-11-25 11:15:51
+123(19) tried to submit before his allowance on 2018-11-25 11:16:09
+123(19) tried to submit before his allowance on 2018-11-25 11:16:18
+123(19) tried to submit before his allowance on 2018-11-25 11:16:32
+123(19) tried to submit before his allowance on 2018-11-25 11:17:56
+123(19) tried to submit before his allowance on 2018-11-25 18:01:25
+ongore99(15) tried to submit before his allowance on 2018-11-25 18:06:15
+123(19) tried to report for the second time on 2018-11-25 12:25:26
+1(8) tried to report for the second time on 2018-11-25 12:25:55
+1(8) tried to report for the second time on 2018-11-25 12:25:58
+31.186.51.92 tried to access this page without authorizing on 2018-11-25 12:32:04
+31.186.51.92 tried to register for the second time on 2018-11-25 12:35:19
+ongore99(15) tried to submit before his allowance on 2018-11-25 18:36:59
+ongore99(15) tried to submit before his allowance on 2018-11-25 18:37:12
+ (9) tried to change his username to an existing one: 9 on 2018-11-25 12:38:13
+9 (9) tried to change his username to an existing one: 9 on 2018-11-25 12:39:03
+9 (9) submitted incorrect credentials while changing username on 2018-11-25 12:39:09
+11 (9) submitted unmatched passwords while changing password: 123123123 123123 on 2018-11-25 12:42:15

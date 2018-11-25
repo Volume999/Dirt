@@ -7,7 +7,7 @@ try {
 	if (!$conn) {
     		die("Connection failed: " . mysqli_connect_error());
 	}	
-	$result = mysqli_query($conn,"SELECT * FROM coordinates");   
+	$result = mysqli_query($conn,"SELECT * FROM markers");   
 	while($row = mysqli_fetch_assoc( $result)){
    	  $json[] = $row;
  	}
@@ -26,8 +26,8 @@ try {
         echo '<td>'.$result->lat.'</td>';
         echo '<td>'.$result->lng.'</td>';
         echo "<td> <font color='red'>".$result->level."</font></td>";
-	$id = $result -> id;
-	$pid = $result -> pointid;
+	$id = $result -> userID;
+	$pid = $result -> id;
        $name = mysqli_query($conn, "SELECT * from users where id  = '$id'");
 	$nameRow = mysqli_fetch_array($name,MYSQLI_ASSOC);
 	echo '<td>'.$nameRow['username'].'</td>';

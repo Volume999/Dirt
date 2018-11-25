@@ -8,19 +8,14 @@ if(!$conn) {
 }
 try {
 $ip = $_SERVER['REMOTE_ADDR'];
-if (empty($_SESSION)) {
-	htmlGetBack("Anouthorized users cannot view this page","index.php" ,"Go back" );
-	logError("$ip tried to access this page without authorizing");
-	exit;
-}
 $userId = $_SESSION['id'];
 $username = $_SESSION['username'];
 $id = filterInput($_GET['id']);
 $observer = filterInput($_GET['observer']);
-$user_arr = mysqli_query($conn, "SELECT * from coordinates where pointid = '$id'");
+$user_arr = mysqli_query($conn, "SELECT * from markers where id = '$id'");
 $row=mysqli_fetch_array($user_arr,MYSQLI_ASSOC);
 if(isset($_POST['delete'])) {
-	mysqli_query($conn, "DELETE FROM coordinates WHERE pointid = '$id'");
+	mysqli_query($conn, "DELETE FROM markers WHERE id = '$id'");
 	htmlGetBack("Your point has been successfully deleted","UserChoose.php", "Go back");
 }
 else if(isset($_POST['submit'])) {
@@ -33,15 +28,15 @@ else if(isset($_POST['submit'])) {
 	}
 	else {
 		if ($row['reports'] == 2) {
-			mysqli_query($conn, "DELETE FROM coordinates WHERE pointid = '$id'");
+			mysqli_query($conn, "DELETE FROM markers WHERE id = '$id'");
 			htmlGetBack("Treshold for deletion has been reached, point has been deleted","UserChoose.php", "Go back");
 		}
 		else {
 			if ($row['reports'] == 1) {
-				mysqli_query($conn, "UPDATE coordinates SET idreport2 = '$userId', reports = 2 WHERE pointid = '$id'");
+				mysqli_query($conn, "UPDATE markers SET idreport2 = '$userId', reports = 2 WHERE id = '$id'");
 			}
 			else {
-				mysqli_query($conn, "UPDATE coordinates SET idreport1 = '$userId', reports = 1 WHERE pointid = '$id'");
+				mysqli_query($conn, "UPDATE markers SET idreport1 = '$userId', reports = 1 WHERE id = '$id'");
 			}
 			htmlGetBack("Your report has been saved", "UserChoose.php", "Go back");
 		}
@@ -55,9 +50,10 @@ print("
 <body>
 
 		X: $row[lat] <br>
-		Y: $row[lon] <br>
+		Y: $row[lng] <br>
 		level: $row[level] <br>
 		observer: $observer <br>
+		comment: $row[comment] <br>
 	  <form action = '' method = 'POST'>
 
 ");

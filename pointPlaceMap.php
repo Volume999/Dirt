@@ -1,33 +1,14 @@
 <?php
 session_start();
 require_once ("config.php");
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
   $conn;
   if (!$conn) {
         die("Connection failed: " . mysqli_connect_error());
   }
-  
-  	$level = $_GET['level'];
-  	$comment = $_GET['comment'];
-	$lat = $_GET['lat'];
-	$lng = $_GET['lng'];
-
-
-  $query = sprintf("INSERT INTO markers " .
-         " (id,  lat, lng, comments, level ) " .
-         " VALUES (NULL,  '%s', '%s', '%s',$level);",
-        mysqli_escape_string($conn,$lat),
-         mysqli_escape_string($conn,$lng),
-     	mysqli_escape_string($conn,$comment)); 
-
-  $result = mysqli_query($conn,$query);
-
-  if (!$result) {
-    die('Invalid query: ' . mysqli_error());
-  }
- 
-  
-
-  
   $result = mysqli_query($conn,"SELECT lat, lng,comments,level FROM markers");   
   while($row = mysqli_fetch_assoc( $result)){
       $json[] = $row;
@@ -35,7 +16,6 @@ require_once ("config.php");
 
   $json_encoded = json_encode($json,JSON_NUMERIC_CHECK  );
   $html = "<!DOCTYPE html>
-  <head>
     <meta name='viewport' content='initial-scale=1.0, user-scalable=no' />
     <meta http-equiv='content-type' content='text/html; charset=UTF-8'/>
     <title>From Info Windows to a Database: Saving User-Added Form Data</title>
@@ -52,17 +32,14 @@ require_once ("config.php");
         padding: 0;
       }
     </style>
-  </head>
-  <body>
     <div id='map' height='460px' width='100%' ></div>
-    <div id='form'>
+    <div id='form' style = 'display: none'>
       <table>
        
-      	
+        <tr><td> Level </td>
 
 
         <td> 
-         <tr>
         Level Of Pollution <br>
         <input type='radio' name='lev' value='1'> 1 &nbsp; &nbsp;
         <input type='radio' name='lev' value='2'> 2 &nbsp; &nbsp;
@@ -70,89 +47,106 @@ require_once ("config.php");
         <input type='radio' name='lev' value='4'> 4 &nbsp; &nbsp;
         <input type='radio' name='lev' value='5'> 5 &nbsp; &nbsp;
 
-        <br>  
-        </tr>  
-       
+        <br>    
+        </td></tr>
 
-        <tr> Comment <br> <textarea id='comment' name='comment' rows='10' cols='40'> </textarea>  <br></tr>
+        <tr><td> Comment </td><td> <textarea id='comment' name='comment' rows='10' cols='40'> </textarea> </td></tr>
   
-            <tr><input type='button' value='Save' onclick='saveData()'/></tr>
-             </td>
+            <tr><td></td><td><input type='button' value='Save' onclick='saveData()'/></td></tr>
       </table>
     </div>
     <div id='message'>Location saved</div>
     <script>
+
       var map;
       var marker;
       var infowindow;
       var messagewindow;
-      
+      var statewindow = null;
+      var labels = 'DASTAN';
 
-        var locations = $json_encoded
 
       function initMap() {
-       
+
+        initWindows();
+
         map = new google.maps.Map(document.getElementById('map'), {
            zoom: 12,
             center: {lat: 42.8640117, lng: 74.5460088 }
-        });
-          var labels = 'DASTAN';
-
-      
-        var markers = locations.map(function(location, i) {
-          var marker = new google.maps.Marker({
-            position: ({lat: location.lat,lng: location.lng}),
-          });
-
-          var statewindow = new google.maps.InfoWindow({
-          	 content: '<h3> comment:' + location.comments + '<br>Level of Pollution: ' + location.level.toString()  + '<h3>'
-          })
-
-          marker.addListener('click', function(){
-          		statewindow.open(map,marker);
-          });
-
-          return marker;
-        });
-
-        // Add a marker clusterer to manage the markers.
-        var markerCluster = new MarkerClusterer(map, markers,
-            {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
-
-
+         });
+        
+        initListeners();
+ 
+      }
+      function initWindows(){
+ $('#form').show();
         infowindow = new google.maps.InfoWindow({
-          content: document.getElementById('form')
+	   
+            content: document.getElementById('form')
         });
 
         messagewindow = new google.maps.InfoWindow({
           content: document.getElementById('message')
         });
 
-        google.maps.event.addListener(map, 'click', function(event) {
+      }
+
+      function initListeners(){
+          google.maps.event.addListener(map, 'click', function(event) {
+          
            placeMarker(event.latLng);
+              google.maps.event.addListener(marker, 'click', function() {
+              infowindow.open(map, marker);
+            });
 
-
-          google.maps.event.addListener(marker, 'click', function() {
-            infowindow.open(map, marker);
           });
+      
+        var markers = locations.map(function(location, i) {
+
+           var markerPointed = new google.maps.Marker({
+             position: ({lat: location.lat,lng: location.lng}),
+          });
+         
+          markerPointed.addListener('click', function(){
+             
+             if (statewindow ) {
+                statewindow.close();
+              }
+
+              statewindow= new google.maps.InfoWindow({
+               content: '<h3> comment:' + location.comments + '<br>Level of Pollution: ' + location.level.toString()  + '<h3>'
+             })
+
+              statewindow.open(map,markerPointed);
+              
+          });
+
+          return markerPointed;
         });
+
+          // Add a marker clusterer to manage the markers.
+        var markerCluster = new MarkerClusterer(map, markers,
+            {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
+
+
       }
       function placeMarker(location) {
-		  if (!marker || !marker.setPosition) {
-		    marker = new google.maps.Marker({
-		      position: location,
-		      map: map,
-		    });
-		  } else {
-		    marker.setPosition(location);
-		  }
-		  if (!!infowindow && !!infowindow.close) {
-		    infowindow.close();
-		  }
-		 
-		  infowindow.open(map, marker);
-	}
-     
+	      if (!marker || !marker.setPosition) {
+	        marker = new google.maps.Marker({
+	          position: location,
+	          map: map,
+	        });
+	      } else {
+	        marker.setPosition(location);
+	      }
+	      if (infowindow && infowindow.close) {
+	        infowindow.close();
+	      }
+           
+
+      		infowindow.open(map, marker);
+  		}
+       var locations = $json_encoded
 
       function saveData() {
 
@@ -162,33 +156,31 @@ require_once ("config.php");
         var level = 3;
 
         for (var i = 0, length = levels.length; i < length; i++)
-			{
-			 if (levels[i].checked)
-			 {
+      {
+       if (levels[i].checked)
+       {
 
-			  level = levels[i].value;
-			  break;
-			 }
-		}
+        level = levels[i].value;
+        break;
+       }
+    }
         
-        var url = 'phpsqlinfo_addrow.php?comment=' + comment +  '&level=' + level +'&lat=' + latlng.lat() + '&lng=' + latlng.lng();
+        var url = 'http://5.59.11.66/~zveri/pointPlace.php?comment=' + comment +  '&level=' + level +'&lat=' + latlng.lat() + '&lng=' + latlng.lng();
 
-         infowindow.close();
-		messagewindow.open(map, marker);
-		marker = new google.maps.Marker({
+         messagewindow.open(map, marker);
+          marker = new google.maps.Marker({
 
             position: event.latLng,
             map: map
 
           });
- 		
-   		
+    	window.location.replace( url );      
 
         downloadUrl(url, function(data, responseCode) {
 
           if (responseCode == 200 && data.length <= 1) {
-           
-            
+            infowindow.close();
+                       
           }
         });
         
@@ -206,9 +198,8 @@ require_once ("config.php");
           }
         };
 
-        request.open('GET', url, true);
-        request.send(null);
       }
+
 
       function doNothing () {
       }
@@ -220,12 +211,8 @@ require_once ("config.php");
     src='https://maps.googleapis.com/maps/api/js?key=AIzaSyBlLms-yD7lNgRk3z4LIpv79WvNTP2aY1I&callback=initMap'>
     </script>
 
-  </body>
 </html>";
 
   echo $html;
-
-
-
 
 ?>

@@ -38,6 +38,7 @@ else {
 </body>
 </html>
 		");
+htmlGetBack("", "index.php", "Go Back");
 }
 
 

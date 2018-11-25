@@ -4,7 +4,7 @@
 	if(isset($_POST['submit'])) {
 		$region = $_POST['region'];
 		$conn;
-	$result = mysqli_query($conn, "SELECT * from coordinates where region = '$region'");
+	$result = mysqli_query($conn, "SELECT * from markers where region = '$region'");
     while($row = mysqli_fetch_assoc( $result)){
    	$json[] = $row;
  	}
@@ -23,8 +23,8 @@
         echo '<td>'.$result->lat.'</td>';
         echo '<td>'.$result->lng.'</td>';
         echo "<td> <font color='red'>".$result->level."</font></td>";
-	$id = $result -> id;
-	$pid = $result -> pointid;
+	$id = $result -> userID;
+	$pid = $result -> id;
        $name = mysqli_query($conn, "SELECT * from users where id  = '$id'");
 	$nameRow = mysqli_fetch_array($name,MYSQLI_ASSOC);
 	echo '<td>'.$nameRow['username'].'</td>';
