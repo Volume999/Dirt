@@ -74,6 +74,7 @@ $html = '<html>
 </body>
 </html>';
 print $html;
+htmlGetBack("", "index.php", "Go Back");
 
 }
 ?>

@@ -1,15 +1,11 @@
 <?php
 session_start();
 require_once ("config.php");
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-
   $conn;
   if (!$conn) {
         die("Connection failed: " . mysqli_connect_error());
   }
-  $result = mysqli_query($conn,"SELECT lat, lng,comments,level FROM markers");   
+  $result = mysqli_query($conn,"SELECT lat, lng,comments,level,name,region FROM markers");   
   while($row = mysqli_fetch_assoc( $result)){
       $json[] = $row;
   }
@@ -33,7 +29,7 @@ error_reporting(E_ALL);
       }
     </style>
     <div id='map' height='460px' width='100%' ></div>
-    <div id='form' style = 'display: none'>
+    <div id='form'>
       <table>
        
         <tr><td> Level </td>
@@ -63,25 +59,24 @@ error_reporting(E_ALL);
       var infowindow;
       var messagewindow;
       var statewindow = null;
-      var labels = 'DASTAN';
+      var labels = '12345';
 
 
       function initMap() {
 
-        initWindows();
+        
 
         map = new google.maps.Map(document.getElementById('map'), {
            zoom: 12,
             center: {lat: 42.8640117, lng: 74.5460088 }
          });
-        
+        initWindows();
         initListeners();
  
       }
       function initWindows(){
- $('#form').show();
+
         infowindow = new google.maps.InfoWindow({
-	   
             content: document.getElementById('form')
         });
 
@@ -94,17 +89,22 @@ error_reporting(E_ALL);
       function initListeners(){
           google.maps.event.addListener(map, 'click', function(event) {
           
-           placeMarker(event.latLng);
-              google.maps.event.addListener(marker, 'click', function() {
-              infowindow.open(map, marker);
+             placeMarker(event.latLng);
+
+             google.maps.event.addListener(marker, 'click', function() {
+
+                infowindow.open(map, marker);
+
             });
 
-          });
+        });
       
-        var markers = locations.map(function(location, i) {
-
+        var markers = markersInfo.map(function(location, i) {
+           var lab = location.level.toString();
+           
            var markerPointed = new google.maps.Marker({
              position: ({lat: location.lat,lng: location.lng}),
+             label: lab
           });
          
           markerPointed.addListener('click', function(){
@@ -114,14 +114,17 @@ error_reporting(E_ALL);
               }
 
               statewindow= new google.maps.InfoWindow({
-               content: '<h3> comment:' + location.comments + '<br>Level of Pollution: ' + location.level.toString()  + '<h3>'
+               content: '<h3> Comment:' + location.comments + 
+               '<br>Level of Pollution: ' + location.level.toString()  +
+               '<br>User:' + location.name + 
+                '<br>Region:' + location.region + ' <h3>'
              })
 
               statewindow.open(map,markerPointed);
               
           });
 
-          return markerPointed;
+          return markerPointed; 
         });
 
           // Add a marker clusterer to manage the markers.
@@ -146,7 +149,7 @@ error_reporting(E_ALL);
 
       		infowindow.open(map, marker);
   		}
-       var locations = $json_encoded
+       var markersInfo = $json_encoded
 
       function saveData() {
 

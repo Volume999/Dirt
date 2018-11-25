@@ -88,7 +88,7 @@ if (!empty($_GET)) {
         }
         else {
            
-           $sql = "INSERT INTO markers (lat, lng, level, userID , comments, region) VALUES ('$lat', '$lon','$level' , '$id', '$trash_com', '$region')";
+           $sql = "INSERT INTO markers (lat, lng, level, userID , comments, region, name) VALUES ('$lat', '$lon','$level' , '$id', '$trash_com', '$region', '$username')";
             mysqli_query($conn, "UPDATE users set lastSubmission = now() where id = '$id'");
            
             if (mysqli_query($conn, $sql)) {
@@ -266,13 +266,15 @@ else
         <tr><td> Comment </td><td> <textarea id='comment' name='comment' rows='10' cols='40'> </textarea> </td></tr>
 
         <tr><td colspan='2' align='center'> <input type='submit' name='submit' size = '40' value='Submit'> </td></tr>
-
+	</table>
+	</center>
         </html>
         
 
         ";
 
         print $html;
+	htmlGetBack("", "UserChoose.php", "Go Back");
 }
 ?>
 

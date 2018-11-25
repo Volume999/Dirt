@@ -68,5 +68,6 @@
 		</html>
 		";
 		print ($html);
+		htmlGetBack("", "UserChoose.php", "Go Back");
 	}
 

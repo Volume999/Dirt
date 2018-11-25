@@ -146,3 +146,17 @@ ongore99(15) tried to submit before his allowance on 2018-11-25 18:37:12
 9 (9) tried to change his username to an existing one: 9 on 2018-11-25 12:39:03
 9 (9) submitted incorrect credentials while changing username on 2018-11-25 12:39:09
 11 (9) submitted unmatched passwords while changing password: 123123123 123123 on 2018-11-25 12:42:15
+ongore99 (15) tried to submit a point outside of Bishkek: 42.846015 74.357217 on 2018-11-25 19:01:19
+ongore99(15) tried to submit before his allowance on 2018-11-25 19:08:20
+11(9) tried to submit before his allowance on 2018-11-25 19:08:57
+ongore99(15) tried to submit before his allowance on 2018-11-25 19:20:02
+ongore99(15) tried to submit before his allowance on 2018-11-25 19:22:19
+ongore99(15) tried to submit before his allowance on 2018-11-25 19:22:32
+Point belongs to bishkek, but not to any region: 42.856210 74.610038 on 2018-11-25 19:24:18
+123(19) tried to submit before his allowance on 2018-11-25 19:24:18
+Point belongs to bishkek, but not to any region: 42.856714 74.609352 on 2018-11-25 19:24:41
+You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '123)' at line 1 on 2018-11-25 19:24:41
+Point belongs to bishkek, but not to any region: 42.856714 74.609352 on 2018-11-25 19:24:56
+123(19) tried to submit before his allowance on 2018-11-25 19:24:56
+Point belongs to bishkek, but not to any region: 42.856714 74.609352 on 2018-11-25 19:25:16
+123(19) tried to submit before his allowance on 2018-11-25 19:25:16
