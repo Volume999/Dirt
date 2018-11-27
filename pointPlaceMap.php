@@ -5,13 +5,14 @@ require_once ("config.php");
   if (!$conn) {
         die("Connection failed: " . mysqli_connect_error());
   }
-  $result = mysqli_query($conn,"SELECT lat, lng,comments,level,name,region FROM markers");   
+  $result = mysqli_query($conn,"SELECT id, lat, lng,comments,level,name,region FROM markers");   
   while($row = mysqli_fetch_assoc( $result)){
       $json[] = $row;
   }
 
   $json_encoded = json_encode($json,JSON_NUMERIC_CHECK  );
   $html = "<!DOCTYPE html>
+    <head>
     <meta name='viewport' content='initial-scale=1.0, user-scalable=no' />
     <meta http-equiv='content-type' content='text/html; charset=UTF-8'/>
     <title>From Info Windows to a Database: Saving User-Added Form Data</title>
@@ -28,6 +29,8 @@ require_once ("config.php");
         padding: 0;
       }
     </style>
+    </head>
+    <body>
     <div id='map' height='460px' width='100%' ></div>
     <div id='form'>
       <table>
@@ -72,12 +75,12 @@ require_once ("config.php");
          });
         initWindows();
         initListeners();
- 
       }
       function initWindows(){
-
         infowindow = new google.maps.InfoWindow({
+          
             content: document.getElementById('form')
+
         });
 
         messagewindow = new google.maps.InfoWindow({
@@ -92,13 +95,12 @@ require_once ("config.php");
              placeMarker(event.latLng);
 
              google.maps.event.addListener(marker, 'click', function() {
-
                 infowindow.open(map, marker);
 
             });
 
         });
-      
+        var prevMarker;
         var markers = markersInfo.map(function(location, i) {
            var lab = location.level.toString();
            
@@ -110,16 +112,22 @@ require_once ("config.php");
           markerPointed.addListener('click', function(){
              
              if (statewindow ) {
+              if (prevMarker == this) {
+              var url = 'http://5.59.11.66/~zveri/details.php?id=' + location.id + '&observer=' + location.name;
+              window.location.replace( url );
+            }
                 statewindow.close();
+
               }
 
               statewindow= new google.maps.InfoWindow({
                content: '<h3> Comment:' + location.comments + 
                '<br>Level of Pollution: ' + location.level.toString()  +
                '<br>User:' + location.name + 
-                '<br>Region:' + location.region + ' <h3>'
+                '<br>Region:' + location.region + '</h3>' 
+                // + '<button onclick='saveData()'/>Click me</button>'
              })
-
+             prevMarker = this;
               statewindow.open(map,markerPointed);
               
           });
@@ -147,7 +155,7 @@ require_once ("config.php");
 	      }
            
 
-      		infowindow.open(map, marker);
+      	//	infowindow.open(map, marker);
   		}
        var markersInfo = $json_encoded
 
@@ -213,7 +221,7 @@ require_once ("config.php");
     <script async defer
     src='https://maps.googleapis.com/maps/api/js?key=AIzaSyBlLms-yD7lNgRk3z4LIpv79WvNTP2aY1I&callback=initMap'>
     </script>
-
+</body>
 </html>";
 
   echo $html;

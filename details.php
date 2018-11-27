@@ -11,7 +11,7 @@ $ip = $_SERVER['REMOTE_ADDR'];
 $userId = $_SESSION['id'];
 $username = $_SESSION['username'];
 $id = filterInput($_GET['id']);
-$observer = filterInput($_GET['observer']);
+$observer = $_GET['observer'];
 $user_arr = mysqli_query($conn, "SELECT * from markers where id = '$id'");
 $row=mysqli_fetch_array($user_arr,MYSQLI_ASSOC);
 if(isset($_POST['delete'])) {
@@ -53,7 +53,7 @@ print("
 		Y: $row[lng] <br>
 		level: $row[level] <br>
 		observer: $observer <br>
-		comment: $row[comment] <br>
+		comment: $row[comments] <br>
 	  <form action = '' method = 'POST'>
 
 ");
