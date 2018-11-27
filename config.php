@@ -1,4 +1,32 @@
 <?php 
+
+define("FORM_FOR_INPUT", "<div id=form>
+         <table>
+       
+        <tr><td> Level </td>
+
+
+        <td> 
+        Level Of Pollution <br>
+        <input type='radio' name='lev' value='1'> 1 &nbsp; &nbsp;
+        <input type='radio' name='lev' value='2'> 2 &nbsp; &nbsp;
+        <input type='radio' name='lev' value='3'> 3 &nbsp; &nbsp;
+        <input type='radio' name='lev' value='4'> 4 &nbsp; &nbsp;
+        <input type='radio' name='lev' value='5'> 5 &nbsp; &nbsp;
+
+        <br>    
+        </td></tr>
+
+        <tr><td> Comment </td><td> <textarea id='comment' name='comment' rows='10' cols='40'> </textarea> </td></tr>
+  
+            <tr><td></td><td><input type='button' value='Save' onclick='saveData()'/></td></tr>
+      </table>
+    </div>");
+
+define("MESSAGE_LOCATION_SAVED", " <div id='message'>Location saved</div>");
+
+
+
 function logAction($conn, $a, $b) {
         mysqli_query($conn, "INSERT into logAction (username, status) values ('$a', '$b');"); 
 }

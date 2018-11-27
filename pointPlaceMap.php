@@ -11,6 +11,9 @@ require_once ("config.php");
   }
 
   $json_encoded = json_encode($json,JSON_NUMERIC_CHECK  );
+
+
+
   $html = "<!DOCTYPE html>
     <head>
     <meta name='viewport' content='initial-scale=1.0, user-scalable=no' />
@@ -32,29 +35,8 @@ require_once ("config.php");
     </head>
     <body>
     <div id='map' height='460px' width='100%' ></div>
-    <div id='form'>
-      <table>
-       
-        <tr><td> Level </td>
-
-
-        <td> 
-        Level Of Pollution <br>
-        <input type='radio' name='lev' value='1'> 1 &nbsp; &nbsp;
-        <input type='radio' name='lev' value='2'> 2 &nbsp; &nbsp;
-        <input type='radio' name='lev' value='3'> 3 &nbsp; &nbsp;
-        <input type='radio' name='lev' value='4'> 4 &nbsp; &nbsp;
-        <input type='radio' name='lev' value='5'> 5 &nbsp; &nbsp;
-
-        <br>    
-        </td></tr>
-
-        <tr><td> Comment </td><td> <textarea id='comment' name='comment' rows='10' cols='40'> </textarea> </td></tr>
-  
-            <tr><td></td><td><input type='button' value='Save' onclick='saveData()'/></td></tr>
-      </table>
-    </div>
-    <div id='message'>Location saved</div>
+   
+   
     <script>
 
       var map;
@@ -77,11 +59,14 @@ require_once ("config.php");
         initListeners();
       }
       function initWindows(){
+		var formStr = `" . FORM_FOR_INPUT . "`;
+      	var messageStr = `" . MESSAGE_LOCATION_SAVED . "`
         infowindow = new google.maps.InfoWindow({
           
-            content: document.getElementById('form')
+            content: formStr
 
         });
+
 
         messagewindow = new google.maps.InfoWindow({
           content: document.getElementById('message')
