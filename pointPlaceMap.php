@@ -91,7 +91,7 @@ require_once ("config.php");
            
            var markerPointed = new google.maps.Marker({
              position: ({lat: location.lat,lng: location.lng}),
-             label: lab
+             icon: 'red_trash.png'
           });
          
           markerPointed.addListener('click', function(){
@@ -104,14 +104,31 @@ require_once ("config.php");
                 statewindow.close();
 
               }
-
+              if (location.name == ";
+                $html .= $_SESSION['username'];
+                $html .= "
+                 ) {
+                  statewindow= new google.maps.InfoWindow({
+               content: '<h3> Comment:' + location.comments + 
+               '<br>Level of Pollution: ' + location.level.toString()  +
+               '<br>User:' + location.name + 
+                '<br>Region:' + location.region + '</h3>'
+                + '<button onclick = deletePoint()> Delete your point </button>'
+               })
+                
+              } 
+              else {
+             
               statewindow= new google.maps.InfoWindow({
                content: '<h3> Comment:' + location.comments + 
                '<br>Level of Pollution: ' + location.level.toString()  +
                '<br>User:' + location.name + 
-                '<br>Region:' + location.region + '</h3>' 
-                // + '<button onclick='saveData()'/>Click me</button>'
+                '<br>Region:' + location.region + '</h3>'
+                + '<button onclick = reportPoint()> Mark as cleaned </button>' 
+                 
+               
              })
+           }
              prevMarker = this;
               statewindow.open(map,markerPointed);
               
@@ -196,7 +213,21 @@ require_once ("config.php");
 
       }
 
-
+      function deletePoint() {
+        var latlng = statewindow.getPosition();
+        statewindow.setContent('Your point has been deleted ');
+        var url = 'http://5.59.11.66/~zveri/pointManip.php?&username=";
+        $username = $_SESSION['username'];
+        $html .= "$username&action=0&lat=' + latlng.lat() + '&lng=' + latlng.lng();
+        window.location.replace( url );
+      }
+      function reportPoint() {
+        var latlng = statewindow.getPosition();
+        var url = 'http://5.59.11.66/~zveri/pointManip.php?&username=";
+        $username = $_SESSION['username'];
+        $html .= "$username&action=1&lat=' + latlng.lat() + '&lng=' + latlng.lng();
+        window.location.replace( url );
+      }
       function doNothing () {
       }
 

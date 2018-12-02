@@ -4,8 +4,13 @@
 	if(isset($_POST['submit'])) {
 		$region = $_POST['region'];
 		$conn;
+	if ($region != "All") {
 	$result = mysqli_query($conn,"SELECT id, lat, lng,comments,level,name,region FROM markers where region = '$region'");   
-  while($row = mysqli_fetch_assoc( $result)){
+ 	}
+	else {
+	$result = mysqli_query($conn, "SELECT id, lat, lng, comments, level, name, region from markers");
+	}
+ while($row = mysqli_fetch_assoc( $result)){
       $json[] = $row;
   }
 
@@ -226,6 +231,7 @@
 				<table>
 					<tr>
 						<td>Select Region <select name = 'region'>
+							<option value = 'All'>All</option>
 							<option value = 'Sverdlov'>Sverdlov</option>
 							<option value ='Oktyabr'> Oktyabr</option>
 							<option value = 'Pervomay'> Pervomay</option>
@@ -242,6 +248,12 @@
 		</html>
 		";
 		print ($html);
-		htmlGetBack("", "UserChoose.php", "Go Back");
+		if (empty($_SESSION)) {
+		$link = "GuestChoose.php";
+		}
+		else {
+		$link = "UserChoose.php";
+		}
+		htmlGetBack("", $link, "Go Back");
 	}
 

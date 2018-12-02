@@ -66,5 +66,5 @@ print("</p>
 </body>
 </html>
 ");
-htmlGetBack("", "UserChoose.php", "Go back");
+htmlGetBack("", "index.php", "Go back");
 ?>

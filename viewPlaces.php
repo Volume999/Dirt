@@ -35,15 +35,9 @@ try {
         echo '</tr>';
     }
     echo '</table>';
-if (empty($_SESSION['username'])) {
-    	$link = 'GuestChoose.php';
-	 }
-	 else {
-		 $link = "UserChoose.php";
-	 }
 	 $message = "";
 	 $message2 = "Go back";
-	htmlGetBack($message, $link, $message2);
+	htmlGetBack($message, "index.php", $message2);
 }catch(Exception $e) {
 	writeException("please");
 }	    

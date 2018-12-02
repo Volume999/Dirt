@@ -76,7 +76,7 @@ if (!empty($_GET)) {
             }
         }
         $last = DateTime::createFromFormat ( "Y-m-d H:i:s", $row["lastSubmission"]);
-        $available = date_add($last, date_interval_create_from_date_string('1 day'));
+        $available = date_add($last, date_interval_create_from_date_string('30 minutes'));
         $now = new Datetime();
         if ($available > $now) {
         $link = 'UserChoose.php';

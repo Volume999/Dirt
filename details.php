@@ -11,25 +11,26 @@ $ip = $_SERVER['REMOTE_ADDR'];
 $userId = $_SESSION['id'];
 $username = $_SESSION['username'];
 $id = filterInput($_GET['id']);
-$observer = $_GET['observer'];
 $user_arr = mysqli_query($conn, "SELECT * from markers where id = '$id'");
 $row=mysqli_fetch_array($user_arr,MYSQLI_ASSOC);
-if(isset($_POST['delete'])) {
+$observer = $row['name'];
+if(isset($_POST['delete']) or strlen($lat) != 0 and strlen($lng) != 0) {
+	$id = $row['id'];
 	mysqli_query($conn, "DELETE FROM markers WHERE id = '$id'");
-	htmlGetBack("Your point has been successfully deleted","UserChoose.php", "Go back");
+	htmlGetBack("Your point has been successfully deleted","index.php", "Go back");
 }
 else if(isset($_POST['submit'])) {
 	$idreport1 = $row['idreport1'];
 	$idreport2 = $row['idreport2'];
 	if ($_SESSION['id'] == $idreport1 or $_SESSION['id'] == $idreport2) {
-		htmlGetBack("One person can only report a point once","viewPlaces.php" , "Go back");
+		htmlGetBack("One person can only report a point once","index.php" , "Go back");
 		$today;   
 		logError("$username($userId) tried to report for the second time");
 	}
 	else {
 		if ($row['reports'] == 2) {
 			mysqli_query($conn, "DELETE FROM markers WHERE id = '$id'");
-			htmlGetBack("Treshold for deletion has been reached, point has been deleted","UserChoose.php", "Go back");
+			htmlGetBack("Treshold for deletion has been reached, point has been deleted","index.php", "Go back");
 		}
 		else {
 			if ($row['reports'] == 1) {
@@ -38,7 +39,7 @@ else if(isset($_POST['submit'])) {
 			else {
 				mysqli_query($conn, "UPDATE markers SET idreport1 = '$userId', reports = 1 WHERE id = '$id'");
 			}
-			htmlGetBack("Your report has been saved", "UserChoose.php", "Go back");
+			htmlGetBack("Your report has been saved", "index.php", "Go back");
 		}
 	}
 }
@@ -67,7 +68,7 @@ print ("
 </form>
 </body>
 </html>");
-htmlGetBack("", "viewPlaces.php", "Go Back");
+htmlGetBack("", "index.php", "Go Back");
 }
 }
 catch(Exception $e) {

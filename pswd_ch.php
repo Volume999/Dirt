@@ -17,7 +17,7 @@ $sesid = $_SESSION['id'];
 if(isset($_POST['submit'])) {
 	if (empty($_POST['oldpas']) or empty($_POST['newpas']) or empty($_POST['connewpas'])) {
 		logError("$username ($sesid) bypassed HTML and submitted empty input");
-		htmlGetBack("You did not fill all areas","userOffice.php" ,"Go back" );
+		htmlGetBack("You did not fill all areas","index.php" ,"Go back" );
 	}
 	else {
     		$password = $_POST['oldpas'];
