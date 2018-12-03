@@ -20,7 +20,7 @@ exit;
         $conn;
         mysqli_query($conn, "UPDATE users SET region = '$newreg' where id = '$id'");         
         $prob = "Changed successfully";
-	$link = "UserChoose.php";
+	$link = "userOffice.php";
 	$message = "Go back";
 	htmlGetBack($prob, $link, $message);
 	}

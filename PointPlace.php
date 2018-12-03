@@ -2,6 +2,8 @@
 session_start();
 require_once ("config.php");
 date_default_timezone_set('Asia/Almaty');
+header("Content-Type: text/html; Charset=UTF-8");
+
 $ip = $_SERVER['REMOTE_ADDR'];
 if (empty($_SESSION)) {
 htmlGetBack("Anouthorized users cannot view this page","index.php" ,"Go back" );
@@ -34,7 +36,7 @@ if (!empty($_GET)) {
     if($inBish == "outside") {
         $message = "Your point placed does not belong to Bishkek";
     logError("$username ($id) tried to submit a point outside of Bishkek: $lat $lon");
-        $link = "pointPlaceMap.php";
+        $link = "index.php";
         $message2 = "Try again";
         htmlGetBack($message, $link, $message2);
     }
@@ -79,7 +81,7 @@ if (!empty($_GET)) {
         $available = date_add($last, date_interval_create_from_date_string('30 minutes'));
         $now = new Datetime();
         if ($available > $now) {
-        $link = 'UserChoose.php';
+        $link = 'index.php';
         $message = "Go back";
         print("You cannot submit now, your next submission is available on ");
         echo date_format($available, 'Y-m-d H:i:s');
@@ -93,7 +95,7 @@ if (!empty($_GET)) {
            
             if (mysqli_query($conn, $sql)) {
             echo "Latitude " . $lat . ", Longitude " . $lon . " , level of pollution " . $level . " and comment about trash " . $trash_com . " were successfully saved";
-            echo '<h4><a href="UserChoose.php"> Return back </a></h4>';
+            echo '<h4><a href="index.php"> Return back </a></h4>';
             } 
             else {
             echo "Error: " . $sql . "<br>" . mysqli_error($conn);
@@ -144,7 +146,7 @@ else if (isset($_POST['submit']))
     if($inBish == "outside") {
         $message = "Your point placed does not belong to Bishkek";
     logError("$username ($id) tried to submit a point outside of Bishkek: $lat $lon");
-        $link = "pointPlace.php";
+        $link = "index.php";
         $message2 = "Try again";
         htmlGetBack($message, $link, $message2);
     }
@@ -189,7 +191,7 @@ else if (isset($_POST['submit']))
         $available = date_add($last, date_interval_create_from_date_string('1 day'));
     $now = new Datetime();
         if ($available > $now) {
-        $link = 'UserChoose.php';
+        $link = 'index.php';
         $message = "Go back";
         print("You cannot submit now, your next submission is available on ");
     echo date_format($available, 'Y-m-d H:i:s');
@@ -203,7 +205,7 @@ else if (isset($_POST['submit']))
             mysqli_query($conn, "UPDATE users set lastSubmission = now() where id = '$id'");
             if (mysqli_query($conn, $sql)) {
             echo "Latitude " . $lat . ", Longitude " . $lon . " , level of pollution " . $level . " and comment about trash " . $trash_com . " were successfully saved";
-            echo '<h4><a href="UserChoose.php"> Return back </a></h4>';
+            echo '<h4><a href="index.php"> Return back </a></h4>';
             } 
             else {
             echo "Error: " . $sql . "<br>" . mysqli_error($conn);
@@ -274,7 +276,7 @@ else
         ";
 
         print $html;
-	htmlGetBack("", "UserChoose.php", "Go Back");
+	htmlGetBack("", "index.php", "Go Back");
 }
 ?>
 

@@ -54,7 +54,6 @@ print("
 <a href='pswd_ch.php'> Change Password </a> <br>
 <a href='username_ch.php'>Change Username </a> <br>
 <a href='region_ch.php'> Change User Region </a> <br>
-<a href='viewYourPlaces.php'> View your places </a> <br>
 ");
 if ($row['email'] == "") {
 	print ("<form action='' method='POST'>

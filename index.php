@@ -1,20 +1,34 @@
+
 <?php
+header('Content-Type: text/html; charset=utf-8');
 session_start();
 require_once ("config.php");
+header("Content-Type: text/html; Charset=UTF-8");
   if($_GET['lg'] == 1) {
       unset($_SESSION['username']);
     unset($_SESSION['id']);
   }
   $conn;
+  $userid = $_SESSION['id'];
   if (!$conn) {
         die("Connection failed: " . mysqli_connect_error());
   }
   if (empty($_POST) or $_POST['region'] != "sverdlov" and $_POST['region'] != "oktyabr" and $_POST['region'] != "lenin" and $_POST['region'] != "pervomay") {
-  $result = mysqli_query($conn,"SELECT id, lat, lng,comments,level,name,region FROM markers");   
+  	if ($_GET['mypoints'] == 1) {
+  		$result = mysqli_query($conn,"SELECT id, lat, lng,comments,level,name,region FROM markers where userID = '$userid' "); 
+  	}
+  	else {
+  		$result = mysqli_query($conn,"SELECT id, lat, lng,comments,level,name,region FROM markers");   
+	}
   }
   else {
     $region = $_POST['region'];
-    $result = mysqli_query($conn,"SELECT id, lat, lng,comments,level,name,region FROM markers where region = '$region' "); 
+    if ($_GET['mypoints'] == 1) {
+    	$result = mysqli_query($conn,"SELECT id, lat, lng,comments,level,name,region FROM markers where region = '$region' and userID = '$userid' "); 
+  	}
+  	else {
+  		$result = mysqli_query($conn,"SELECT id, lat, lng,comments,level,name,region FROM markers where region = '$region'");
+  	}
   }
   while($row = mysqli_fetch_assoc( $result)){
       $json[] = $row;
@@ -41,6 +55,7 @@ print ("<html>
   <form action='' method='POST'>
     <select name = 'region'>
        <option value='' selected disabled hidden>$showreg</option>
+       <option value = 'all'> All regions </option>
       <option value = 'sverdlov'>Sverdlov</option>
       <option value = 'oktyabr'>Oktyabr</option>
       <option value = 'pervomay'>Pervomay</option>
@@ -53,9 +68,11 @@ print ("<html>
 ");
 
   $html = "<!DOCTYPE html>
+
     <head>
+
     <meta name='viewport' content='initial-scale=1.0, user-scalable=no' />
-    <meta http-equiv='content-type' content='text/html; charset=UTF-8'/>
+    <meta http-equiv='content-type' content='text/html; charset=utf-8'/>
     <title>From Info Windows to a Database: Saving User-Added Form Data</title>
     <style>
       /* Always set the map height explicitly to define the size of the div
@@ -189,7 +206,7 @@ print ("<html>
     <script async defer
     src='https://maps.googleapis.com/maps/api/js?key=AIzaSyBlLms-yD7lNgRk3z4LIpv79WvNTP2aY1I&callback=initMap'>
     </script>
-}
+
 </body>
 </html>";
 
@@ -208,10 +225,20 @@ print ("<html>
   <a href='index.php?lg=1'>  Logout   </a>
   &nbsp;
   <a href='AboutUs.php'>About us</a>
+  &nbsp;
+  ");
+if ($_GET['mypoints'] == 1) {
+  print("<a href = 'index.php?mypoints=0'> View All Points </a>");
+}
+else {
+	print ("<a href = 'index.php?mypoints=1'> View Your Points </a>");
+}
+print("
 </div>  
   <form action='' method='POST'>
     <select name = 'region'>
        <option value='' selected disabled hidden>$showreg</option>
+       <option value = 'all'> All regions </option>
       <option value = 'sverdlov'>Sverdlov</option>
       <option value = 'oktyabr'>Oktyabr</option>
       <option value = 'pervomay'>Pervomay</option>
@@ -219,9 +246,6 @@ print ("<html>
     </select>
     <input type='submit' name='submit' value = 'select region'>
   </form>
-
-
-
 </body>
 </html>
 ");
@@ -321,7 +345,8 @@ print ("<html>
                 $html .= "
                  ) {
                   statewindow= new google.maps.InfoWindow({
-               content: '<h3> Comment:' + location.comments + 
+               content: 
+               '<h3> Comment:' + location.comments + 
                '<br>Level of Pollution: ' + location.level.toString()  +
                '<br>User:' + location.name + 
                 '<br>Region:' + location.region + '</h3>'
@@ -375,7 +400,7 @@ print ("<html>
 
       function saveData() {
 
-        var comment = escape(document.getElementById('comment').value);
+        var comment = document.getElementById('comment').value;
         var latlng = marker.getPosition();
         var levels = document.getElementsByName('lev');
         var level = 3;
