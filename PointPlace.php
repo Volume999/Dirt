@@ -35,6 +35,8 @@ if (!empty($_GET)) {
     }
     if($inBish == "outside") {
         $message = "Your point placed does not belong to Bishkek";
+        http_response_code(201);
+
     logError("$username ($id) tried to submit a point outside of Bishkek: $lat $lon");
         $link = "index.php";
         $message2 = "Try again";
@@ -84,18 +86,22 @@ if (!empty($_GET)) {
         $link = 'index.php';
         $message = "Go back";
         print("You cannot submit now, your next submission is available on ");
+        http_response_code(202);
+        exit;
         echo date_format($available, 'Y-m-d H:i:s');
         logError("$username($id) tried to submit before his allowance");
         htmlGetBack("", $link, $message);
         }
         else {
-           
+           http_response_code(205);
            $sql = "INSERT INTO markers (lat, lng, level, userID , comments, region, name) VALUES ('$lat', '$lon','$level' , '$id', '$trash_com', '$region', '$username')";
             mysqli_query($conn, "UPDATE users set lastSubmission = now() where id = '$id'");
            
             if (mysqli_query($conn, $sql)) {
+            
             echo "Latitude " . $lat . ", Longitude " . $lon . " , level of pollution " . $level . " and comment about trash " . $trash_com . " were successfully saved";
             echo '<h4><a href="index.php"> Return back </a></h4>';
+
             } 
             else {
             echo "Error: " . $sql . "<br>" . mysqli_error($conn);

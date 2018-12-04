@@ -44,6 +44,11 @@ if (empty($_SESSION)) {
     $showreg = "All Regions";
   }
 print ("<html>
+  <head>
+  <title>Welcome to ZVERI</title>
+  <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css' integrity='sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u' crossorigin='anonymous'>
+
+</head>
 <body>
 <div style = 'float:right'>
   <a href='login.php'>   Login</a> 
@@ -333,10 +338,7 @@ print("
           markerPointed.addListener('click', function(){
              
              if (statewindow ) {
-              if (prevMarker == this) {
-              var url = 'http://5.59.11.66/~zveri/details.php?id=' + location.id + '&observer=' + location.name;
-              window.location.replace( url );
-            }
+              
                 statewindow.close();
 
               }
@@ -366,7 +368,7 @@ print("
                
              })
            }
-             prevMarker = this;
+            
               statewindow.open(map,markerPointed);
               
           });
@@ -424,8 +426,36 @@ print("
             map: map
 
           });
-      window.location.replace( url );      
+            
+          var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (xhttp.readyState == 4) {
+      if (xhttp.status == 205) {
+      messagewindow.setContent('Successfully saved');
+      setTimeout(function(){
+   window.location.reload(1);
+}, 2500);
+  }
 
+  else if (xhttp.status == 201) {
+      messagewindow.setContent('Your point placed does not belong to Bishkek');
+      setTimeout(function(){
+   window.location.reload(1);
+}, 2500);
+  }
+  if (xhttp.status == 202) {
+      messagewindow.setContent('You cannot submit now, you are on cooldown, check your office');
+    
+      setTimeout(function(){
+   window.location.reload(1);
+}, 2500);
+  }
+    }
+    
+  };
+  xhttp.open('GET', url, true);
+  xhttp.send();
+  infowindow.close();
         downloadUrl(url, function(data, responseCode) {
 
           if (responseCode == 200 && data.length <= 1) {
@@ -452,18 +482,56 @@ print("
 
       function deletePoint() {
         var latlng = statewindow.getPosition();
-        statewindow.setContent('Your point has been deleted ');
+        
         var url = 'http://5.59.11.66/~zveri/pointManip.php?&username=";
         $username = $_SESSION['username'];
         $html .= "$username&action=0&lat=' + latlng.lat() + '&lng=' + latlng.lng();
-        window.location.replace( url );
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+         if (xhttp.readyState == 4) {
+        if (xhttp.status == 200) {
+        statewindow.setContent('Your point has been deleted ');
+        setTimeout(function(){
+   window.location.reload(1);
+}, 2500);
+       }
+        else {
+      statewindow.setContent('There was some problem ' + url);
+    }
+    }
+    
+  };
+  xhttp.open('GET', url, true);
+  xhttp.send();
       }
       function reportPoint() {
         var latlng = statewindow.getPosition();
         var url = 'http://5.59.11.66/~zveri/pointManip.php?&username=";
         $username = $_SESSION['username'];
         $html .= "$username&action=1&lat=' + latlng.lat() + '&lng=' + latlng.lng();
-        window.location.replace( url );
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+         if (xhttp.readyState == 4) {
+        if (xhttp.status == 200) {
+        statewindow.setContent('Your point has been deleted ');
+        setTimeout(function(){
+   window.location.reload(1);
+}, 2500);
+       }
+        else if (xhttp.status == 201) {
+      statewindow.setContent('One person can only report a point once');
+    }
+      else if (xhttp.status == 202) {
+        statewindow.setContent('Treshold for deletion has been reached, point has been deleted');
+      }
+      else if (xhttp.status == 203) {
+        statewindow.setContent('Your report has been saved');
+      }
+    }
+    
+  };
+  xhttp.open('GET', url, true);
+  xhttp.send();
       }
       function doNothing () {
       }

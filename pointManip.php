@@ -1,6 +1,7 @@
 <?php 
 session_start();
 require_once("config.php");
+
 $user = $_GET['username'];
 $action = $_GET['action']; // 0 = delete 1 = report
 $lat = $_GET['lat'];
@@ -16,8 +17,10 @@ if (empty($row)) {
 $name = $row['name'];
 if ($action == 0) {
 	if ($name == $_SESSION['username']) {
+
 		mysqli_query($conn, "DELETE from markers where lng = $lng and lat = $lat");
 		htmlGetBack("Your point has been successfully deleted","index.php", "Go back");
+		http_response_code(200);
 	}
 	else {
 		print ("You cannot delete points that you didn't place");
@@ -30,6 +33,7 @@ else if($action == 1) {
 	$userId = $_SESSION['id'];
 	if ($_SESSION['id'] == $idreport1 or $_SESSION['id'] == $idreport2) {
 		htmlGetBack("One person can only report a point once","index.php" , "Go back");
+		http_response_code(201); //201 = user reports twice or more
 		$today;   
 		logError("$username($userId) tried to report for the second time");
 	}
@@ -37,6 +41,7 @@ else if($action == 1) {
 		if ($row['reports'] == 2) {
 			mysqli_query($conn, "DELETE FROM markers WHERE lng = $lng and lat = $lat");
 			htmlGetBack("Treshold for deletion has been reached, point has been deleted","index.php", "Go back");
+			http_response_code(202); //treshhold
 		}
 		else {
 			if ($row['reports'] == 1) {
@@ -46,6 +51,7 @@ else if($action == 1) {
 				mysqli_query($conn, "UPDATE markers SET idreport1 = $userId, reports = 1 WHERE lng = $lng and lat = $lat");
 			}
 			htmlGetBack("Your report has been saved", "index.php", "Go back");
+			http_response_code(203); // report saved
 		}
 	}
 }

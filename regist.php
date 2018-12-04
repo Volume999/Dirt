@@ -47,6 +47,7 @@ else {
 $html = '<html>
 <head>
 <title>Registration</title>
+
 </head>
 <body>
 	<meta charset="utf-8">
