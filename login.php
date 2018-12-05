@@ -21,11 +21,11 @@
 		logAction($conn, $username, "fail");
 		exit;
 		}
-		else {
+		else {	
 		$_SESSION['username'] = $username;
 		$_SESSION['id'] = $row['id'];
 		logAction($conn, $username, "login");
-		echo "<script>location.href='index.php';</script>";
+		echo "<script>window.location = 'index.php';</script>";
 		}
 	}   		
   }

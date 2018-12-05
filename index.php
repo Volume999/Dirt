@@ -1,42 +1,45 @@
-
 <?php
 header('Content-Type: text/html; charset=utf-8');
 session_start();
 require_once ("config.php");
 header("Content-Type: text/html; Charset=UTF-8");
-  if($_GET['lg'] == 1) {
-      unset($_SESSION['username']);
-    unset($_SESSION['id']);
-  }
-  $conn;
-  $userid = $_SESSION['id'];
-  if (!$conn) {
-        die("Connection failed: " . mysqli_connect_error());
-  }
-  if (empty($_POST) or $_POST['region'] != "sverdlov" and $_POST['region'] != "oktyabr" and $_POST['region'] != "lenin" and $_POST['region'] != "pervomay") {
-  	if ($_GET['mypoints'] == 1) {
-  		$result = mysqli_query($conn,"SELECT id, lat, lng,comments,level,name,region FROM markers where userID = '$userid' "); 
-  	}
-  	else {
-  		$result = mysqli_query($conn,"SELECT id, lat, lng,comments,level,name,region FROM markers");   
-	}
+if($_GET['lg'] == 1) {
+   unset($_SESSION['username']);
+   unset($_SESSION['id']);
+   session_destroy();
+}
+$conn;
+$userid = $_SESSION['id'];
+$sesusername = $_SESSION['username'];
+if (!$conn) {
+  die("Connection failed: " . mysqli_connect_error());
+}
+if (empty($_POST) or 
+$_POST['region'] != "sverdlov" and $_POST['region'] != "oktyabr"
+and $_POST['region'] != "lenin" and $_POST['region'] != "pervomay") {
+  if ($_GET['mypoints'] == 1) {
+  $result = mysqli_query($conn,"SELECT id, lat, lng,comments,level,name,region FROM markers where 
+        userID = '$userid' "); 
   }
   else {
-    $region = $_POST['region'];
-    if ($_GET['mypoints'] == 1) {
-    	$result = mysqli_query($conn,"SELECT id, lat, lng,comments,level,name,region FROM markers where region = '$region' and userID = '$userid' "); 
-  	}
-  	else {
-  		$result = mysqli_query($conn,"SELECT id, lat, lng,comments,level,name,region FROM markers where region = '$region'");
-  	}
+  $result = mysqli_query($conn,"SELECT id, lat, lng,comments,level,name,region FROM markers");   
   }
-  while($row = mysqli_fetch_assoc( $result)){
-      $json[] = $row;
+} 
+else {
+  $region = $_POST['region'];
+  if ($_GET['mypoints'] == 1) {
+    $result = mysqli_query($conn,"SELECT id, lat, lng,comments,level,name,region FROM markers where region = 
+    '$region' and userID = '$userid' "); 
   }
-
-  $json_encoded = json_encode($json,JSON_NUMERIC_CHECK  );
-
-
+  else {
+    $result = mysqli_query($conn,"SELECT id, lat, lng,comments,level,name,region FROM markers where region = 
+    '$region'");
+  }
+}
+while($row = mysqli_fetch_assoc( $result)){
+  $json[] = $row;
+}
+$json_encoded = json_encode($json,JSON_NUMERIC_CHECK  );
 
 if (empty($_SESSION)) {
   $showreg = $_POST['region'];
@@ -47,7 +50,6 @@ print ("<html>
   <head>
   <title>Welcome to ZVERI</title>
   <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css' integrity='sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u' crossorigin='anonymous'>
-
 </head>
 <body>
 <div style = 'float:right'>
@@ -71,21 +73,15 @@ print ("<html>
 </body>
 </html>
 ");
-
   $html = "<!DOCTYPE html>
-
     <head>
-
     <meta name='viewport' content='initial-scale=1.0, user-scalable=no' />
     <meta http-equiv='content-type' content='text/html; charset=utf-8'/>
     <title>From Info Windows to a Database: Saving User-Added Form Data</title>
     <style>
-      /* Always set the map height explicitly to define the size of the div
-       * element that contains the map. */
       #map {
         height: 100%;
       }
-      /* Optional: Makes the sample page fill the window. */
       html, body {
         height: 100%;
         margin: 0;
@@ -98,19 +94,14 @@ print ("<html>
    
    
     <script>
-
       var map;
       var marker;
       var infowindow;
       var messagewindow;
       var statewindow = null;
       var labels = '12345';
-
-
       function initMap() {
-
         
-
         map = new google.maps.Map(document.getElementById('map'), {
            zoom: 12,
             center: {lat: 42.8640117, lng: 74.5460088 }
@@ -124,28 +115,20 @@ print ("<html>
         infowindow = new google.maps.InfoWindow({
           
             content: formStr
-
         });
-
-
         messagewindow = new google.maps.InfoWindow({
           content: document.getElementById('message')
         });
-
       }
-
       function initListeners(){
           google.maps.event.addListener(map, 'click', function(event) {
           
              placeMarker(event.latLng);
-
              google.maps.event.addListener(marker, 'click', function() {
                 infowindow.open(map, marker);
-
             });
-
         });
-        var prevMarker;
+
         var markers = markersInfo.map(function(location, i) {
            var lab = location.level.toString();
            
@@ -169,55 +152,43 @@ print ("<html>
                
              })
            
-             prevMarker = this;
               statewindow.open(map,markerPointed);
               
           });
-
           return markerPointed; 
         });
-
           // Add a marker clusterer to manage the markers.
         var markerCluster = new MarkerClusterer(map, markers,
             {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
-
-
       }
       
        var markersInfo = $json_encoded
-
-
       function downloadUrl(url, callback) {
         var request = window.ActiveXObject ?
             new ActiveXObject('Microsoft.XMLHTTP') :
             new XMLHttpRequest;
-
         request.onreadystatechange = function() {
           if (request.readyState == 4) {
             request.onreadystatechange = doNothing;
             callback(request.responseText, request.status);
           }
         };
-
       }
-
     
       function doNothing () {
       }
-
     </script>
      <script src='https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js'>
     </script>
     <script async defer
     src='https://maps.googleapis.com/maps/api/js?key=AIzaSyBlLms-yD7lNgRk3z4LIpv79WvNTP2aY1I&callback=initMap'>
     </script>
-
 </body>
 </html>";
-
   echo $html;
 }
 else {
+
   $showreg = $_POST['region'];
   if (strlen($showreg) == 0) {
     $showreg = "All Regions";
@@ -236,7 +207,7 @@ if ($_GET['mypoints'] == 1) {
   print("<a href = 'index.php?mypoints=0'> View All Points </a>");
 }
 else {
-	print ("<a href = 'index.php?mypoints=1'> View Your Points </a>");
+  print ("<a href = 'index.php?mypoints=1'> View Your Points </a>");
 }
 print("
 </div>  
@@ -254,19 +225,15 @@ print("
 </body>
 </html>
 ");
-  
     $html = "<!DOCTYPE html>
     <head>
     <meta name='viewport' content='initial-scale=1.0, user-scalable=no' />
     <meta http-equiv='content-type' content='text/html; charset=UTF-8'/>
-    <title>From Info Windows to a Database: Saving User-Added Form Data</title>
+    <title>Dastan, you suck</title>
     <style>
-      /* Always set the map height explicitly to define the size of the div
-       * element that contains the map. */
       #map {
         height: 100%;
       }
-      /* Optional: Makes the sample page fill the window. */
       html, body {
         height: 100%;
         margin: 0;
@@ -279,19 +246,14 @@ print("
    
    
     <script>
-
       var map;
       var marker;
       var infowindow;
       var messagewindow;
       var statewindow = null;
       var labels = '12345';
-
-
       function initMap() {
-
         
-
         map = new google.maps.Map(document.getElementById('map'), {
            zoom: 12,
             center: {lat: 42.8640117, lng: 74.5460088 }
@@ -305,28 +267,19 @@ print("
         infowindow = new google.maps.InfoWindow({
           
             content: formStr
-
         });
-
-
         messagewindow = new google.maps.InfoWindow({
-          content: document.getElementById('message')
+          content: messageStr
         });
-
       }
-
       function initListeners(){
           google.maps.event.addListener(map, 'click', function(event) {
           
              placeMarker(event.latLng);
-
              google.maps.event.addListener(marker, 'click', function() {
                 infowindow.open(map, marker);
-
             });
-
         });
-        var prevMarker;
         var markers = markersInfo.map(function(location, i) {
            var lab = location.level.toString();
            
@@ -340,12 +293,8 @@ print("
              if (statewindow ) {
               
                 statewindow.close();
-
               }
-              if (location.name == ";
-                $html .= $_SESSION['username'];
-                $html .= "
-                 ) {
+              if (location.name == '$sesusername') {
                   statewindow= new google.maps.InfoWindow({
                content: 
                '<h3> Comment:' + location.comments + 
@@ -372,15 +321,11 @@ print("
               statewindow.open(map,markerPointed);
               
           });
-
           return markerPointed; 
         });
-
           // Add a marker clusterer to manage the markers.
         var markerCluster = new MarkerClusterer(map, markers,
             {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
-
-
       }
       function placeMarker(location) {
         if (!marker || !marker.setPosition) {
@@ -395,36 +340,28 @@ print("
           infowindow.close();
         }
            
-
         //  infowindow.open(map, marker);
       }
        var markersInfo = $json_encoded
-
       function saveData() {
-
         var comment = document.getElementById('comment').value;
         var latlng = marker.getPosition();
         var levels = document.getElementsByName('lev');
         var level = 3;
-
         for (var i = 0, length = levels.length; i < length; i++)
       {
        if (levels[i].checked)
        {
-
         level = levels[i].value;
         break;
        }
     }
         
         var url = 'http://5.59.11.66/~zveri/pointPlace.php?comment=' + comment +  '&level=' + level +'&lat=' + latlng.lat() + '&lng=' + latlng.lng();
-
          messagewindow.open(map, marker);
           marker = new google.maps.Marker({
-
             position: event.latLng,
             map: map
-
           });
             
           var xhttp = new XMLHttpRequest();
@@ -436,7 +373,6 @@ print("
    window.location.reload(1);
 }, 2500);
   }
-
   else if (xhttp.status == 201) {
       messagewindow.setContent('Your point placed does not belong to Bishkek');
       setTimeout(function(){
@@ -457,7 +393,6 @@ print("
   xhttp.send();
   infowindow.close();
         downloadUrl(url, function(data, responseCode) {
-
           if (responseCode == 200 && data.length <= 1) {
             infowindow.close();
                        
@@ -465,27 +400,21 @@ print("
         });
         
       }
-
       function downloadUrl(url, callback) {
         var request = window.ActiveXObject ?
             new ActiveXObject('Microsoft.XMLHTTP') :
             new XMLHttpRequest;
-
         request.onreadystatechange = function() {
           if (request.readyState == 4) {
             request.onreadystatechange = doNothing;
             callback(request.responseText, request.status);
           }
         };
-
       }
-
       function deletePoint() {
         var latlng = statewindow.getPosition();
         
-        var url = 'http://5.59.11.66/~zveri/pointManip.php?&username=";
-        $username = $_SESSION['username'];
-        $html .= "$username&action=0&lat=' + latlng.lat() + '&lng=' + latlng.lng();
+        var url = 'http://5.59.11.66/~zveri/pointManip.php?&username=$sesusername&action=0&lat=' + latlng.lat() + '&lng=' + latlng.lng();
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function() {
          if (xhttp.readyState == 4) {
@@ -506,9 +435,7 @@ print("
       }
       function reportPoint() {
         var latlng = statewindow.getPosition();
-        var url = 'http://5.59.11.66/~zveri/pointManip.php?&username=";
-        $username = $_SESSION['username'];
-        $html .= "$username&action=1&lat=' + latlng.lat() + '&lng=' + latlng.lng();
+        var url = 'http://5.59.11.66/~zveri/pointManip.php?&username=$sesusername&action=1&lat=' + latlng.lat() + '&lng=' + latlng.lng();
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function() {
          if (xhttp.readyState == 4) {
@@ -535,7 +462,6 @@ print("
       }
       function doNothing () {
       }
-
     </script>
      <script src='https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js'>
     </script>
@@ -544,8 +470,6 @@ print("
     </script>
 </body>
 </html>";
-
   echo $html;
 }
-
 ?>

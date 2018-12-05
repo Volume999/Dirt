@@ -1,11 +1,5 @@
 <?php 
 
-  /*  if ($_SERVER['PHP_AUTH_USER'] != "Dastan" or $_SERVER['PHP_AUTH_PW'] != "Dog") {
-                header('WWW-Authenticate: Basic Realm="Book Projects"');
-      header("HTTP/1.1 401 Unauthorized");
-             exit ('Incorrect login / password');
-        }
-*/
 define("FORM_FOR_INPUT", "
 <meta http-equiv='Content-Type' content='text/html; charset=utf-8' />
     <div id=form>

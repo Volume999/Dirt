@@ -16,6 +16,9 @@ $conn;
 $username = $_SESSION['username'];
 $user_arr = mysqli_query($conn, "SELECT * from users where username = '$username'");
 $row=mysqli_fetch_array($user_arr,MYSQLI_ASSOC);
+ $last = DateTime::createFromFormat ( "Y-m-d H:i:s", $row["lastSubmission"]);
+        $available = date_add($last, date_interval_create_from_date_string('30 minutes'));
+        $nextsubmission =  date_format($available, 'Y-m-d H:i:s');
 $region = $row['region'];
 if (isset($_POST['change'])) {
 	$email = $_POST['email'];
@@ -41,7 +44,6 @@ if (isset($_POST['submit'])) {
 }
 
 
-
 print(" 
 <html>
 <head>
@@ -50,6 +52,8 @@ print("
 <body>
 	<h1> Welcome to your office !!</h1>
 	<h2> Username: '$username' Region: '$region' </h2>
+<br>
+Next Submission available at: $nextsubmission
 <p>
 <a href='pswd_ch.php'> Change Password </a> <br>
 <a href='username_ch.php'>Change Username </a> <br>
