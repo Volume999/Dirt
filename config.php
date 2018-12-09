@@ -27,7 +27,251 @@ define("FORM_FOR_INPUT", "
 
 define("MESSAGE_LOCATION_SAVED", " <div id='message'>Location saved</div>");
 
-
+$mapHtml = "<!DOCTYPE html>
+    <head>
+    <meta name='viewport' content='initial-scale=1.0, user-scalable=no' />
+    <meta http-equiv='content-type' content='text/html; charset=UTF-8'/>
+    <title>Dastan, you suck</title>
+    <style>
+      #map {
+        height: 100%;
+      }
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+    </head>
+    <body>
+    <div id='map' height='460px' width='100%' ></div>
+   
+   
+    <script>
+      var map;
+      var marker;
+      var infowindow;
+      var messagewindow;
+      var statewindow = null;
+      var labels = '12345';
+      function initMap() {
+        
+        map = new google.maps.Map(document.getElementById('map'), {
+           zoom: 12,
+            center: {lat: 42.8640117, lng: 74.5460088 }
+         });
+        initWindows();
+        initListeners();
+      }
+      function initWindows(){
+    var formStr = `" . FORM_FOR_INPUT . "`;
+        var messageStr = `" . MESSAGE_LOCATION_SAVED . "`
+        infowindow = new google.maps.InfoWindow({
+          
+            content: formStr
+        });
+        messagewindow = new google.maps.InfoWindow({
+          content: messageStr
+        });
+      }
+      function initListeners(){
+          google.maps.event.addListener(map, 'click', function(event) {
+          
+             placeMarker(event.latLng);
+             google.maps.event.addListener(marker, 'click', function() {
+                infowindow.open(map, marker);
+            });
+        });
+        var markers = markersInfo.map(function(location, i) {
+           var lab = location.level.toString();
+           
+           var markerPointed = new google.maps.Marker({
+             position: ({lat: location.lat,lng: location.lng}),
+             icon: 'red_trash.png'
+          });
+         
+          markerPointed.addListener('click', function(){
+             
+             if (statewindow ) {
+              
+                statewindow.close();
+              }
+              if (location.name == '$sesusername') {
+                  statewindow= new google.maps.InfoWindow({
+               content: 
+               '<h3> Comment:' + location.comments + 
+               '<br>Level of Pollution: ' + location.level.toString()  +
+               '<br>User:' + location.name + 
+                '<br>Region:' + location.region + '</h3>'
+                + '<button onclick = deletePoint()> Delete your point </button>'
+               })
+                
+              } 
+              else {
+             
+              statewindow= new google.maps.InfoWindow({
+               content: '<h3> Comment:' + location.comments + 
+               '<br>Level of Pollution: ' + location.level.toString()  +
+               '<br>User:' + location.name + 
+                '<br>Region:' + location.region + '</h3>'
+                + '<button onclick = reportPoint()> Mark as cleaned </button>' 
+                 
+               
+             })
+           }
+            
+              statewindow.open(map,markerPointed);
+              
+          });
+          return markerPointed; 
+        });
+          // Add a marker clusterer to manage the markers.
+        var markerCluster = new MarkerClusterer(map, markers,
+            {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
+      }
+      function placeMarker(location) {
+        if (!marker || !marker.setPosition) {
+          marker = new google.maps.Marker({
+            position: location,
+            map: map,
+          });
+        } else {
+          marker.setPosition(location);
+        }
+        if (infowindow && infowindow.close) {
+          infowindow.close();
+        }
+           
+        //  infowindow.open(map, marker);
+      }
+       var markersInfo = $json_encoded
+      function saveData() {
+        var comment = document.getElementById('comment').value;
+        var latlng = marker.getPosition();
+        var levels = document.getElementsByName('lev');
+        var level = 3;
+        for (var i = 0, length = levels.length; i < length; i++)
+      {
+       if (levels[i].checked)
+       {
+        level = levels[i].value;
+        break;
+       }
+    }
+        
+        var url = 'http://5.59.11.66/~zveri/pointPlace.php?comment=' + comment +  '&level=' + level +'&lat=' + latlng.lat() + '&lng=' + latlng.lng();
+         messagewindow.open(map, marker);
+          marker = new google.maps.Marker({
+            position: event.latLng,
+            map: map
+          });
+            
+          var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (xhttp.readyState == 4) {
+      if (xhttp.status == 205) {
+      messagewindow.setContent('Successfully saved');
+      setTimeout(function(){
+   window.location.reload(1);
+}, 2500);
+  }
+  else if (xhttp.status == 201) {
+      messagewindow.setContent('Your point placed does not belong to Bishkek');
+      setTimeout(function(){
+   window.location.reload(1);
+}, 2500);
+  }
+  if (xhttp.status == 202) {
+      messagewindow.setContent('You cannot submit now, you are on cooldown, check your office');
+    
+      setTimeout(function(){
+   window.location.reload(1);
+}, 2500);
+  }
+    }
+    
+  };
+  xhttp.open('GET', url, true);
+  xhttp.send();
+  infowindow.close();
+        downloadUrl(url, function(data, responseCode) {
+          if (responseCode == 200 && data.length <= 1) {
+            infowindow.close();
+                       
+          }
+        });
+        
+      }
+      function downloadUrl(url, callback) {
+        var request = window.ActiveXObject ?
+            new ActiveXObject('Microsoft.XMLHTTP') :
+            new XMLHttpRequest;
+        request.onreadystatechange = function() {
+          if (request.readyState == 4) {
+            request.onreadystatechange = doNothing;
+            callback(request.responseText, request.status);
+          }
+        };
+      }
+      function deletePoint() {
+        var latlng = statewindow.getPosition();
+        
+        var url = 'http://5.59.11.66/~zveri/pointManip.php?&username=$sesusername&action=0&lat=' + latlng.lat() + '&lng=' + latlng.lng();
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+         if (xhttp.readyState == 4) {
+        if (xhttp.status == 200) {
+        statewindow.setContent('Your point has been deleted ');
+        setTimeout(function(){
+   window.location.reload(1);
+}, 2500);
+       }
+        else {
+      statewindow.setContent('There was some problem ' + url);
+    }
+    }
+    
+  };
+  xhttp.open('GET', url, true);
+  xhttp.send();
+      }
+      function reportPoint() {
+        var latlng = statewindow.getPosition();
+        var url = 'http://5.59.11.66/~zveri/pointManip.php?&username=$sesusername&action=1&lat=' + latlng.lat() + '&lng=' + latlng.lng();
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+         if (xhttp.readyState == 4) {
+        if (xhttp.status == 200) {
+        statewindow.setContent('Your point has been deleted ');
+        setTimeout(function(){
+   window.location.reload(1);
+}, 2500);
+       }
+        else if (xhttp.status == 201) {
+      statewindow.setContent('One person can only report a point once');
+    }
+      else if (xhttp.status == 202) {
+        statewindow.setContent('Treshold for deletion has been reached, point has been deleted');
+      }
+      else if (xhttp.status == 203) {
+        statewindow.setContent('Your report has been saved');
+      }
+    }
+    
+  };
+  xhttp.open('GET', url, true);
+  xhttp.send();
+      }
+      function doNothing () {
+      }
+    </script>
+     <script src='https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js'>
+    </script>
+    <script async defer
+    src='https://maps.googleapis.com/maps/api/js?key=AIzaSyBlLms-yD7lNgRk3z4LIpv79WvNTP2aY1I&callback=initMap'>
+    </script>
+</body>
+</html>";
 
 function logAction($conn, $a, $b) {
         mysqli_query($conn, "INSERT into logAction (username, status) values ('$a', '$b');"); 

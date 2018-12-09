@@ -227,3 +227,4 @@ Asd12 (33) tried to submit a point outside of Bishkek: 42.924251 74.514423 on 20
 Asd12 (33) tried to submit a point outside of Bishkek: 42.924001 74.537769 on 2018-12-05 15:09:25
 10.10.2.231 tried to register for the second time on 2018-12-05 09:26:24
 milota98 (37) tried to submit a point outside of Bishkek: 42.893352 74.894695 on 2018-12-05 15:30:00
+5.57.10.106 tried to access this page without authorizing on 2018-12-09 22:03:25

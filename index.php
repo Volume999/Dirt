@@ -49,27 +49,34 @@ if (empty($_SESSION)) {
 print ("<html>
   <head>
   <title>Welcome to ZVERI</title>
-  <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css' integrity='sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u' crossorigin='anonymous'>
+  <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css'>
+  <script src='https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script>
+  <script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js'></script>
 </head>
 <body>
-<div style = 'float:right'>
-  <a href='login.php'>   Login</a> 
+<div style = 'float:right' class='btn-group'>
+  <a href='login.php' class='btn btn-info' role='button'>   Login</a> 
    &nbsp;
-  <a href='regist.php'>   Register   </a>
+  <a href='regist.php' class='btn btn-info' role='button'>   Register   </a>
   &nbsp;
-  <a href='AboutUs.php'>About us</a>
+  <a href='AboutUs.php' class='btn btn-warning' role='button'>About us</a>
 </div>
+
   <form action='' method='POST'>
-    <select name = 'region'>
+
+    <select class='col-lg-1' name = 'region' id = 'select'>
        <option value='' selected disabled hidden>$showreg</option>
        <option value = 'all'> All regions </option>
       <option value = 'sverdlov'>Sverdlov</option>
       <option value = 'oktyabr'>Oktyabr</option>
       <option value = 'pervomay'>Pervomay</option>
       <option value = 'lenin'>Lenin</option>
+      <input type='submit' name='submit' value = 'select region' class='btn btn-default'>
     </select>
-    <input type='submit' name='submit' value = 'select region'>
+
+    
   </form>
+
 </body>
 </html>
 ");
@@ -174,7 +181,6 @@ print ("<html>
           }
         };
       }
-    
       function doNothing () {
       }
     </script>
@@ -211,8 +217,9 @@ else {
 }
 print("
 </div>  
+<div class='col-xs-1'>
   <form action='' method='POST'>
-    <select name = 'region'>
+    <select name = 'region' class='form-control'>
        <option value='' selected disabled hidden>$showreg</option>
        <option value = 'all'> All regions </option>
       <option value = 'sverdlov'>Sverdlov</option>
@@ -223,6 +230,7 @@ print("
     <input type='submit' name='submit' value = 'select region'>
   </form>
 </body>
+</div>
 </html>
 ");
     $html = "<!DOCTYPE html>

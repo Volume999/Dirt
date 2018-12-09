@@ -46,8 +46,20 @@
 else {
 $html = '<html>
 <head>
-<title>Registration</title>
 
+<title>Registration</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<style>
+#register td, #register th {
+  padding: 8px;
+}
+#Submit{
+
+ 	padding: 8px;
+
+}
+</style>
 </head>
 <body>
 	<meta charset="utf-8">
@@ -58,20 +70,21 @@ $html = '<html>
 	<h4>Please fill out all the sections </h4>
 
 	<form action="" method="POST">	
-	<table >		
-		<tr><td> User name </td> <td> <input type="text" name="username" placeholder="name" pattern = "[A-Za-z0-9]{6,}" title = "Логин не может быть короче шести латинских символов." required></td></tr>
+	<table id="register">		
+		<tr><td> User name </td> <td> <input type="text" class="form-control" name="username" placeholder="name" pattern = "[A-Za-z0-9]{6,}" title = "Логин не может быть короче шести латинских символов." required></td></tr>
 
-		<tr><td> Password</td> <td> <input type="password" pattern="[A-Za-z0-9]{1,20}"  title = "Пароль не может быть короче восьми символов и должен содержать хотя бы одну цифру, одну маленькую и одну большую латинскую букву." name="password" placeholder="password" minlength = "6" required></td></tr>
+		<tr><td> Password</td> <td> <input type="password" pattern="[A-Za-z0-9]{1,20}" class="form-control" title = "Пароль не может быть короче восьми символов и должен содержать хотя бы одну цифру, одну маленькую и одну большую латинскую букву." name="password" placeholder="password" minlength = "6" required></td></tr>
 
-		<tr><td>Region</td></tr> <td><select name = "region"> 
+		<tr><td>Region</td><td><select name = "region" class="form-control" > 
 			<option value = "Sverdlov">Sverdlov</option>
 			<option value = "Oktyabr"> Oktyabr</option>
 			<option value = "Pervomay"> Pervomay</option>
 			<option value = "Lenin"> Lenin</option>
 		</select></td>
+		</tr> 
  	</table>
 
- 	<input type="Submit" name="Submit" color="blue">
+ 	<input class = "btn btn-primary"type="Submit" name="Submit"id="Submit" color="blue">
 	</center>
 </body>
 </html>';

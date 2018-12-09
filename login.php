@@ -34,38 +34,38 @@ print("
 <head>
 	<title>Welcome to ZVERI</title>
 	<link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css' integrity='sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u' crossorigin='anonymous'>
-
+	<script src='https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script>
+  <script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js'></script>
 </head>
 <body>
-	<form action = '' method='POST'>
-	<table align='center' border='1' width='400'>
-		<tbody>
-			<tr>
-				<td>Username</td>
-				<td><input type='text' name='username' required></td>
-			</tr>
-			<tr>
-				<td>Password</td>
-				<td><input type='Password' name='password' required=></td>
-			</tr>
+<div class='container'>
+<h2>Login</h2>
+<form action = '' method='POST'>
+<div class='form-group'>
+	
+			<label>Email:</label>
+    		<input type='text' class='form-control' placeholder='Enter username' name='username' required>
+			</div>
+		<div class='form-group'>
+        <label>Password:</label>
+        <input type='password' class='form-control' id='pwd' placeholder='Enter password' name='password' required>
+        </div>
+		<input type='submit' name='submit' class='btn btn-default' value = 'Login'>
+		<br>
+		<a href='index.php'>Proceed as Guest </a>
+		<br>
+<a href='forgotPass.php'>Reset Password </a>
 
-			<tr>
-			<td>	<input type='submit' name='submit'> </td>
-			</tr>
-
-			<tr>
-			<td><a href='index.php'>Proceed as Guest </a></td>
-	<td><a href='forgotPass.php'>Reset Password </a>
-	</td>
-	</tr>
-		</tbody>
-	</table>
 </form>
 <br>
 <hr>
-<center><strong>'Make Bishkek Trashless' project </strong></center>
+<center>
+<h1>'Make Bishkek Trashless' project <h1>
+</center>
 <p>
-	<a href = 'regist.php'>Sign up</a><br><a href= 'AboutUs.php'>About us</a>
+	<a href = 'regist.php'>Sign up</a><br><a href= 'AboutUs.php'>About us</a><br>
+	<a href= 'index.php'>Go back</a>
+
 
 </p>
 </body>
