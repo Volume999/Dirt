@@ -1,8 +1,5 @@
 <?php  
 session_start();
-ini_set('display_errors', 1);
-	ini_set('display_startup_errors', 1);
-	error_reporting(E_ALL);
 require_once("config.php");
 $ip = $_SERVER['REMOTE_ADDR'];
 
@@ -37,8 +34,8 @@ if (isset($_POST['change'])) {
 if (isset($_POST['submit'])) {
 	print("<html>
 	<form action = '' method= 'POST'>
-		Your email: <input type='email' name='email'> <br>
-		<input type='submit' name='change' value = 'Add Email'>
+		Your email: <input type='email' name='email'style='margin-right:7px'> 
+		<input type='submit' name='change' value = 'Submit' class='btn btn-success'>
 	</form>
 </html>");
 }
@@ -48,21 +45,23 @@ print("
 <html>
 <head>
 <title>Welcom to your office</title>
+<script src='https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script>
+  <script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js'></script>
+   <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css'>
 </head>
-<body>
+<body style='margin:20'>
 	<h1> Welcome to your office !!</h1>
 	<h2> Username: '$username' Region: '$region' </h2>
 <br>
 Next Submission available at: $nextsubmission
 <p>
-<a href='pswd_ch.php'> Change Password </a> <br>
-<a href='username_ch.php'>Change Username </a> <br>
-<a href='region_ch.php'> Change User Region </a> <br>
+<a href='pswd_ch.php'class='btn btn-info' style='margin-top:5'> Change Password </a> <br>
+<a href='username_ch.php'class='btn btn-info' style='margin-top:5'>Change Username </a> <br>
+<a href='region_ch.php'class='btn btn-info' style='margin-top:5'> Change User Region </a> <br>
 ");
 if ($row['email'] == "") {
 	print ("<form action='' method='POST'>
-	<input type='submit' name='submit' value = 'Add Email'>
-	</form>
+	<button type='submit' class='btn btn-primary' style='margin-top:5' name='submit'  > <i class='glyphicon glyphicon-envelope' style='margin-right:5px'></i> Add email</button>
 	");
 }
 print("</p>

@@ -48,13 +48,13 @@ if (empty($_SESSION)) {
   }
 print ("<html>
   <head>
-  <title>Welcome to ZVERI</title>
+  <title>Trash.kg</title>
   <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css'>
   <script src='https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script>
   <script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js'></script>
 </head>
 <body>
-<div style = 'float:right' class='btn-group'>
+<div style = 'float:right;margin:12px' class='btn-group'>
   <a href='login.php' class='btn btn-info' role='button'>   Login</a> 
    &nbsp;
   <a href='regist.php' class='btn btn-info' role='button'>   Register   </a>
@@ -64,7 +64,7 @@ print ("<html>
 
   <form action='' method='POST'>
 
-    <select class='col-lg-1' name = 'region' id = 'select'>
+    <select class='col-xs-1.5' style='margin:12px'name = 'region' id = 'select'>
        <option value='' selected disabled hidden>$showreg</option>
        <option value = 'all'> All regions </option>
       <option value = 'sverdlov'>Sverdlov</option>
@@ -82,8 +82,12 @@ print ("<html>
 ");
   $html = "<!DOCTYPE html>
     <head>
+    <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css'>
     <meta name='viewport' content='initial-scale=1.0, user-scalable=no' />
     <meta http-equiv='content-type' content='text/html; charset=utf-8'/>
+      <script src='https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script>
+  <script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js'></script>
+
     <title>From Info Windows to a Database: Saving User-Added Form Data</title>
     <style>
       #map {
@@ -200,26 +204,31 @@ else {
     $showreg = "All Regions";
   }
 print ("<html>
+  <head>
+  <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css'>
+  <script src='https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script>
+  <script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js'></script>
+  </head>
 <body>
-<div style = 'float:right'>
-  <a href='userOffice.php'>Your office</a> 
-   &nbsp;
-  <a href='index.php?lg=1'>  Logout   </a>
-  &nbsp;
-  <a href='AboutUs.php'>About us</a>
-  &nbsp;
+<div style = 'float:right;margin:12px' class='btn-group'>
+  <a href='userOffice.php' class='btn btn-info'>Your office</a> 
+
+  <a href='index.php?lg=1' class='btn btn-info'>  Logout   </a>
+
+  
+
   ");
 if ($_GET['mypoints'] == 1) {
-  print("<a href = 'index.php?mypoints=0'> View All Points </a>");
+  print("<a href = 'index.php?mypoints=0' class='btn btn-info'> View All Points </a>");
 }
 else {
-  print ("<a href = 'index.php?mypoints=1'> View Your Points </a>");
+  print ("<a href = 'index.php?mypoints=1' class='btn btn-info'> View Your Points </a>");
 }
 print("
+  <a href='AboutUs.php' class='btn btn-warning' >About us</a>
 </div>  
-<div class='col-xs-1'>
   <form action='' method='POST'>
-    <select name = 'region' class='form-control'>
+    <select class='col-xs-1.5' style='margin:12px' name = 'region' >
        <option value='' selected disabled hidden>$showreg</option>
        <option value = 'all'> All regions </option>
       <option value = 'sverdlov'>Sverdlov</option>
@@ -227,17 +236,19 @@ print("
       <option value = 'pervomay'>Pervomay</option>
       <option value = 'lenin'>Lenin</option>
     </select>
-    <input type='submit' name='submit' value = 'select region'>
+    <input type='submit' name='submit' value = 'select region' class='btn btn-default'>
   </form>
 </body>
-</div>
 </html>
 ");
     $html = "<!DOCTYPE html>
     <head>
+ 
+      <script src='https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script>
+  <script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js'></script>
     <meta name='viewport' content='initial-scale=1.0, user-scalable=no' />
     <meta http-equiv='content-type' content='text/html; charset=UTF-8'/>
-    <title>Dastan, you suck</title>
+    <title>Trash.kg</title>
     <style>
       #map {
         height: 100%;

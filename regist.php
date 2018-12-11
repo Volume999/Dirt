@@ -84,7 +84,7 @@ $html = '<html>
 		</tr> 
  	</table>
 
- 	<input class = "btn btn-primary"type="Submit" name="Submit"id="Submit" color="blue">
+ 	<input class = "btn btn-success"type="Submit" name="Submit"id="Submit" color="blue">
 	</center>
 </body>
 </html>';
