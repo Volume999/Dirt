@@ -45,16 +45,21 @@ if(isset($_POST['submit'])) {
 else { 
       $html = "
         <html>
-        <title> Location of Pollution </title>
+        <head>
+        <title> Changing Password </title>
+         <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css'>
+  <script src='https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script>
+  <script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js'></script>
+        </head>
         <meta charset='utf-8'>
          <center>
-        <h4> Password Changing </h4>
+        <h2> Password Changing </h2>
         <form action='' method='POST'>
         <table border='1px' cellpadding='5' cellspacing='0'>
-        <tr><td>Password :</td><td> <input type='password' step=any name='oldpas' required></td> </tr>
-        <tr><td> New Password :</td><td> <input type='password' step=any name='newpas' minlength = '6' required> </td></tr>
-        <tr><td> Confirm New Password :</td><td> <input type='password' step=any name='connewpas' required> </td></tr>
-        <tr><td colspan='2' align='center'> <input type='submit' name='submit' size = '40' value='change'> </td></tr>
+        <tr><td><strong>Password</strong></td><td> <input type='password' step=any name='oldpas' required></td> </tr>
+        <tr><td><strong> New Password</strong></td><td> <input type='password' step=any name='newpas' minlength = '6' required> </td></tr>
+        <tr><td><strong> Confirm New Password</strong></td><td> <input type='password' step=any name='connewpas' required> </td></tr>
+        <tr><td colspan='2' align='center'> <input type='submit' name='submit' size = '40' value='change' class = 'btn btn-info'> </td></tr>
 	</table>
 	</center>
         </html>       

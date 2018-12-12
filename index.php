@@ -468,7 +468,9 @@ print("
       statewindow.setContent('One person can only report a point once');
     }
       else if (xhttp.status == 202) {
-        statewindow.setContent('Treshold for deletion has been reached, point has been deleted');
+        statewindow.setContent('Treshold for deletion has been reached, point has been deleted');setTimeout(function(){
+   window.location.reload(1);
+}, 2500);
       }
       else if (xhttp.status == 203) {
         statewindow.setContent('Your report has been saved');

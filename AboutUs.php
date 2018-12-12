@@ -27,7 +27,7 @@ of Bishkek who are using this site can see the location of this trash.<br>
 
  <p class='bg-primary' style='font-size:160%; text-align:center;'>First: Register on the site</p> 
 <p class='bg-primary' style='font-size:160%; text-align:center;'>Second: Login using your credentials</p>
-<strong style='font-size:160%;'><center>Unauthorized users can only view the points.</center> </strong>
+<strong style='font-size:120%;'><center>*Unauthorized users can only view the points.</center> </strong>
 <p class='bg-primary' style='font-size:160%; text-align:center;'>Third: Set a point using markers on the map</p>
 <h3><small>Level indicates degree of pollution, from 1 point up to 5. </small></h3>
 

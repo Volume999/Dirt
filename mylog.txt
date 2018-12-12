@@ -236,3 +236,10 @@ milota98 (37) tried to submit a point outside of Bishkek: 42.893352 74.894695 on
 109.201.190.250 tried to register under an existing username on 2018-12-11 16:15:40
 5.57.10.106 tried to access this page without authorizing on 2018-12-12 00:08:00
 31.186.51.92 tried to register for the second time on 2018-12-11 18:53:49
+123123 (43) submitted incorrect credentials while changing username on 2018-12-12 03:23:44
+123123 reported an inexistent point on 2018-12-12 03:38:38
+(43) tried to report for the second time on 2018-12-12 03:40:18
+(43) tried to report for the second time on 2018-12-12 03:40:39
+(43) tried to report for the second time on 2018-12-12 03:40:40
+(43) tried to report for the second time on 2018-12-12 03:40:42
+(43) tried to report for the second time on 2018-12-12 03:40:44

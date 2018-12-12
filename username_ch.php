@@ -47,8 +47,8 @@ $sesid = $_SESSION['id'];
 		logError("$username ($sesid) tried to change his username to an existing one: $newname");
 	}
 	else {
-        mysqli_query($conn, "UPDATE users SET username = '$newname' where username = '$username'");         
-        print( "Changed successfully");
+        mysqli_query($conn, "UPDATE users SET username = '$newname' where username = '$username'");  
+        htmlGetBack("Changed successfully", "userOffice.php", "Return");       
 	$_SESSION['username'] = $newname;
 	}
 	}
@@ -60,16 +60,21 @@ $sesid = $_SESSION['id'];
        print("
 
         <html>
-        <title> Location of Pollution </title>
+        <head>
+        <title> Changing username </title>
+     <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css'>
+  <script src='https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script>
+  <script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js'></script>
+        </head>
         <meta charset='utf-8'>
                <center>
         <div>
-	<h4> Username Changing </h4>
+	<h2> Username Changing </h2>
         <form action='' method='POST'>
         <table border='1px' cellpadding='5' >
-        <tr><td>Password :</td><td> <input type='password' name='password' required></td> </tr>
-        <tr><td> New Name:</td><td> <input type='text' name='newname' required> </td></tr>
-        <tr><td colspan='2' align='center'> <input type='submit' name='submit' size = '40' value='change'> </td></tr>
+        <tr><td><strong>Password</strong> :</td><td> <input type='password' name='password' required></td> </tr>
+        <tr><td> <strong>New username</strong></td><td> <input type='text' name='newname' required> </td></tr>
+        <tr><td colspan='2' align='center'> <input type='submit' name='submit' size = '40' value='change' class = 'btn btn-info'> </td></tr>
 	</table>
 	</center>
 	</div>
@@ -79,10 +84,10 @@ $sesid = $_SESSION['id'];
 
       
 	
-
+    htmlGetBack("", "userOffice.php", "Return");
       }
 
-  htmlGetBack("", "userOffice.php", "Return");
+ 
 
 
 
